@@ -1,0 +1,24 @@
+{
+  "name": "fat-cli",
+  "version": "1.0.0",
+  "description": "谢树宏的胖脚手架",
+  "main": "index.js",
+  "bin": {
+    "vue-cli-service": "bin/fat-cli-service.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build node bin/fat-cli-service.js --open",
+    "dev": "fat-cli-service build"
+  },
+  "author": "shuhongxie",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "lerna": "^4.0.0",
+    "webpack": "^5.64.2"
+  },
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}
