@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
+const Service = require("../lib/Service");
+
 // usr/bin/env 以node为解释器
 console.log(process.argv);
 
-const minimist = require("minimist");
 const rawArgv = ["build"]; // process.argv.slice(2)
+const service = new Service(process.cwd());
 const args = require("minimist")(rawArgv, {
   boolean: [
     // build
@@ -22,4 +24,4 @@ const args = require("minimist")(rawArgv, {
   ],
 });
 
-console.log(args);
+service.run(args._[0]);
