@@ -33,8 +33,7 @@ module.exports = class Service {
   run(name) {
     const mode = name === "build" ? "development" : "production";
     this.init(mode);
-    const { fn } = this.commands;
-    return fn();
+    return this.commands[name]();
   }
   // 环境变量加载
   loadEnv(mode) {
