@@ -22,18 +22,20 @@ module.exports = class Service {
       this.loadEnv(mode);
     }
     this.loadEnv();
-    console.log(process.env);
     // 插件应用
     this.plugins.forEach(({ id, apply }) => {
       apply(new Plugin(id, this));
     });
-    console.log(this.commands);
   }
   // 执行主流程
   run(name) {
     const mode = name === "build" ? "development" : "production";
     this.init(mode);
     return this.commands[name]();
+  }
+  // 用户配置加载
+  loadUserConfig() {
+    const defaultFileName =
   }
   // 环境变量加载
   loadEnv(mode) {
@@ -52,7 +54,6 @@ module.exports = class Service {
     const load = (path) => {
       try {
         const file = fs.statSync(path);
-        console.log(file);
         if (file.isFile()) {
           const env = dotenv.config({ path, debug: false });
           dotenvExpand.expand(env);
