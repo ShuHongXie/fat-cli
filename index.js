@@ -1,3 +1,2 @@
-const test = require("./test");
-console.log(test, test.src);
-// console.log(test.src, this, exports === module.exports);
+import sets, { res1, res } from "./test.js";
+console.log(res1, sets);

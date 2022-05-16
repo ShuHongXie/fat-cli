@@ -3,6 +3,7 @@ const dotenvExpand = require("dotenv-expand");
 const path = require("path");
 const fs = require("fs");
 const Plugin = require("./Plugin");
+const { existFile } = require("../utils/file");
 
 module.exports = class Service {
   constructor(context, { plugins = {} } = {}) {
@@ -35,7 +36,14 @@ module.exports = class Service {
   }
   // 用户配置加载
   loadUserConfig() {
-    const defaultFileName =
+    const defaultFileName = ["./fat.config.js"];
+    let configPath;
+    for (const item of defaultFileName) {
+      let path = path.resolve(process.pwd(), item);
+      if (existFile()) {
+        configPath = path;
+      }
+    }
   }
   // 环境变量加载
   loadEnv(mode) {
@@ -53,8 +61,7 @@ module.exports = class Service {
 
     const load = (path) => {
       try {
-        const file = fs.statSync(path);
-        if (file.isFile()) {
+        if (existFile(path)) {
           const env = dotenv.config({ path, debug: false });
           dotenvExpand.expand(env);
         }
