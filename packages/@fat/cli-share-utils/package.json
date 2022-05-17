@@ -1,0 +1,27 @@
+{
+  "name": "cli-share-utils",
+  "version": "0.0.0",
+  "description": "脚手架外部共享方法",
+  "author": "谢树宏 <384180258@qq.com>",
+  "homepage": "https://github.com/ShuHongXie/fat-cli#readme",
+  "license": "ISC",
+  "main": "lib/cli-share-utils.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShuHongXie/fat-cli.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/ShuHongXie/fat-cli/issues"
+  },
+  "dependencies": {}
+}

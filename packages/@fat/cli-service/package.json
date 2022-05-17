@@ -1,7 +1,6 @@
 {
-  "name": "fat-cli-service",
+  "name": "cli-service",
   "version": "0.0.0",
-  "description": "fat-cli的脚手架本地服务",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "",
   "license": "ISC",
@@ -23,9 +22,12 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
+    "chalk": "^5.0.1",
+    "cli-share-utils": "^0.0.0",
     "dotenv": "^16.0.1",
     "dotenv-expand": "^8.0.3",
     "html-webpack-plugin": "^5.5.0",
+    "lodash.defaultsdeep": "^4.6.1",
     "minimist": "^1.2.6",
     "webpack": "^5.72.1",
     "webpack-chain": "^6.5.1",

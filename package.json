@@ -6,7 +6,6 @@
   "bin": {
     "vue-cli-service": "bin/fat-cli-service.js"
   },
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build node bin/fat-cli-service.js --open",
