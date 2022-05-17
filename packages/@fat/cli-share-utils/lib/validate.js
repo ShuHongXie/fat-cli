@@ -5,21 +5,21 @@
  * @LastEditTime: 2022-05-17 15:57:17
  * @FilePath: /fat-cli/packages/share-utils/lib/joi.js
  */
-const { exit } = require('./exit')
+const { exit } = require("./exit");
 exports.createSchema = (fn) => fn(require("joi"));
 
-// 数据段校验
-exports.validate = async (obj, schema, cb) => {
-  const result = object.validate(obj, schema)
+// 数据段校验 同步方法
+exports.validate = (obj, schema, cb) => {
+  const result = object.validate(obj, schema);
   if (result.error) {
-    throw result.error
+    throw result.error;
   } else {
-    cb()
+    cb();
   }
 };
 
-// 数据段校验
-exports.validateSync = (obj, schema) => {
+// 数据段校验 异步方法
+exports.validateSync = async (obj, schema) => {
   try {
     await schema.validateAsync(obj);
   } catch (err) {
@@ -28,4 +28,4 @@ exports.validateSync = (obj, schema) => {
       exit(1);
     }
   }
-}
+};

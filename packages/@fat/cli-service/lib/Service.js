@@ -1,24 +1,41 @@
 const dotenv = require("dotenv");
 const dotenvExpand = require("dotenv-expand");
 const path = require("path");
-const fs = require("fs");
 const chalk = require("chalk");
 const Plugin = require("./Plugin");
+const Config = require("webpack-chain");
 const { existFile } = require("cli-share-utils");
 const defaultsDeep = require("lodash.defaultsdeep");
 const { defaults } = require("./config/options");
 
 module.exports = class Service {
   constructor(context, { plugins = {} } = {}) {
+    // 当前路径
     this.context = context;
+    // webpack原生配置
+    this.webpackRawConfigFns = [];
+    // webpack-chain独立配置
+    this.webpackChainFns = [];
+    // 负担执行命令
     this.commands = {};
-    this.config = {};
+    // 负担相关配置项
+    this.webpackConfig = {};
+    // 当前插件
     this.plugins = this.resolvePlugins(plugins);
+    // 当前的模式
     this.mode = this.plugins.reduce(
       (modes, current) => Object.assign(modes, current.apply.defaultModes),
       {}
     );
     console.log(this.mode);
+  }
+  // webpack-chain配置解析
+  // 文档地址 https://github.com/neutrinojs/webpack-chain
+  resolveChainableWebpackConfig() {
+    const chainableConfig = new Config();
+    // apply chains
+    this.webpackChainFns.forEach((fn) => fn(chainableConfig));
+    return chainableConfig;
   }
   // 初始化
   init(mode) {
@@ -28,17 +45,25 @@ module.exports = class Service {
     }
     this.loadEnv();
     const userConfig = loadUserConfig;
-    this.config = defaultsDeep(defaults(), userConfig);
+    this.webpackConfig = defaultsDeep(defaults(), userConfig);
     // 插件应用
     this.plugins.forEach(({ id, apply }) => {
-      apply(new Plugin(id, this));
+      apply(new Plugin(id, this), this.webpackConfig);
     });
+    // 收集webpack-chain配置和configureWebpack配置
+    const { chainWebpack, configureWebpack } = this.webpackConfig;
+    if (chainWebpack) {
+      this.webpackChainFns.push(chainWebpack);
+    }
+    if (configureWebpack) {
+      this.webpackRawConfigFns.push(configureWebpack);
+    }
   }
   // 执行主流程
   run(name) {
     const mode = name === "build" ? "development" : "production";
     this.init(mode);
-    return this.commands[name](this.config);
+    return this.commands[name](this.webpackConfig);
   }
   // 用户配置加载 仅支持外部链接文件
   loadUserConfig() {

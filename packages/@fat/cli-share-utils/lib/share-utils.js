@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-module.exports = shareUtils;
+["exit", "file", "validate"].forEach((method) => {
+  exports[method] = require(`./lib/${m}`);
+});
 
-function shareUtils() {
-    // TODO
-}
+exports.chalk = require("chalk");

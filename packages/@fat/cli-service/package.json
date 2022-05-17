@@ -1,5 +1,5 @@
 {
-  "name": "cli-service",
+  "name": "@fat/cli-service",
   "version": "0.0.0",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "",
@@ -22,8 +22,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "chalk": "^5.0.1",
-    "cli-share-utils": "^0.0.0",
+    "@fat/cli-share-utils": "^0.0.0",
     "dotenv": "^16.0.1",
     "dotenv-expand": "^8.0.3",
     "html-webpack-plugin": "^5.5.0",

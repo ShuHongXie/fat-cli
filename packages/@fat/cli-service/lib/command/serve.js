@@ -4,7 +4,7 @@ const { merge } = require("webpack-merge");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const defaultConfig = require("../config/base")();
 
-module.exports = (plugin) => {
+module.exports = (plugin, options) => {
   plugin.registerCommand("serve", {}, async () => {
     const config = merge(defaultConfig, {
       mode: "development",
