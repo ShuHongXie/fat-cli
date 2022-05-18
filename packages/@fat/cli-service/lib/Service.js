@@ -1,10 +1,9 @@
 const dotenv = require("dotenv");
 const dotenvExpand = require("dotenv-expand");
 const path = require("path");
-const chalk = require("chalk");
 const Plugin = require("./Plugin");
 const Config = require("webpack-chain");
-const { existFile } = require("cli-share-utils");
+const { existFile, chalk } = require("cli-share-utils");
 const defaultsDeep = require("lodash.defaultsdeep");
 const { defaults } = require("./config/options");
 
@@ -19,7 +18,7 @@ module.exports = class Service {
     // 负担执行命令
     this.commands = {};
     // 负担相关配置项
-    this.webpackConfig = {};
+    this.userConfig = {};
     // 当前插件
     this.plugins = this.resolvePlugins(plugins);
     // 当前的模式
@@ -37,6 +36,17 @@ module.exports = class Service {
     this.webpackChainFns.forEach((fn) => fn(chainableConfig));
     return chainableConfig;
   }
+  resolveWebpackConfig(chainableConfig = this.resolveChainableWebpackConfig()) {
+    let config = chainableConfig.toConfig();
+    this.webpackRawConfigFns.forEach((fn) => {
+      if (typeof fn === "function") {
+        const res = fn(config);
+        config = merge(config, res || {});
+      } else {
+        config = merge(config, fn);
+      }
+    });
+  }
   // 初始化
   init(mode) {
     // 环境变量加载
@@ -44,14 +54,14 @@ module.exports = class Service {
       this.loadEnv(mode);
     }
     this.loadEnv();
-    const userConfig = loadUserConfig;
-    this.webpackConfig = defaultsDeep(defaults(), userConfig);
+    const userConfig = this.loadUserConfig();
+    this.userConfig = defaultsDeep(defaults(), userConfig);
     // 插件应用
     this.plugins.forEach(({ id, apply }) => {
-      apply(new Plugin(id, this), this.webpackConfig);
+      apply(new Plugin(id, this), this.userConfig);
     });
     // 收集webpack-chain配置和configureWebpack配置
-    const { chainWebpack, configureWebpack } = this.webpackConfig;
+    const { chainWebpack, configureWebpack } = this.userConfig;
     if (chainWebpack) {
       this.webpackChainFns.push(chainWebpack);
     }
@@ -63,7 +73,7 @@ module.exports = class Service {
   run(name) {
     const mode = name === "build" ? "development" : "production";
     this.init(mode);
-    return this.commands[name](this.webpackConfig);
+    return this.commands[name](this.userConfig);
   }
   // 用户配置加载 仅支持外部链接文件
   loadUserConfig() {
@@ -71,9 +81,9 @@ module.exports = class Service {
     let configPath;
     // 获取配置地址
     for (const item of defaultFileName) {
-      let path = path.resolve(process.pwd(), item);
-      if (existFile()) {
-        configPath = path;
+      const filePath = path.resolve(process.cwd(), item);
+      if (existFile(filePath)) {
+        configPath = filePath;
         break;
       }
     }

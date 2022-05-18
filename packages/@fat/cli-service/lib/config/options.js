@@ -1,4 +1,4 @@
-const { createSchema, validate } = require("@vue/cli-shared-utils");
+const { createSchema, validate } = require("@fat/cli-share-utils");
 
 const schema = createSchema((joi) =>
   joi.object({
@@ -10,11 +10,11 @@ const schema = createSchema((joi) =>
     runtimeCompiler: joi.boolean(),
     transpileDependencies: joi.array(),
     productionSourceMap: joi.boolean(),
-    parallel: joi.alternatives().try([joi.boolean(), joi.number().integer()]),
+    parallel: joi.alternatives().try(joi.boolean(), joi.number().integer()),
     devServer: joi.object(),
     pages: joi.object().pattern(
       /\w+/,
-      joi.alternatives().try([
+      joi.alternatives().try(
         joi.string().required(),
         joi.array().items(joi.string().required()),
 
@@ -23,16 +23,16 @@ const schema = createSchema((joi) =>
           .keys({
             entry: joi
               .alternatives()
-              .try([
+              .try(
                 joi.string().required(),
-                joi.array().items(joi.string().required()),
-              ])
+                joi.array().items(joi.string().required())
+              )
               .required(),
           })
-          .unknown(true),
-      ])
+          .unknown(true)
+      )
     ),
-    crossorigin: joi.string().valid(["", "anonymous", "use-credentials"]),
+    crossorigin: joi.string().valid("", "anonymous", "use-credentials"),
     integrity: joi.boolean(),
 
     // css
@@ -57,7 +57,7 @@ const schema = createSchema((joi) =>
     configureWebpack: joi.alternatives().try(joi.object(), joi.func()),
 
     // known runtime options for built-in plugins
-    lintOnSave: joi.any().valid([true, false, "error", "warning", "default"]),
+    lintOnSave: joi.any().valid(true, false, "error", "warning", "default"),
     // pwa: joi.object(),
 
     // 3rd party plugin options

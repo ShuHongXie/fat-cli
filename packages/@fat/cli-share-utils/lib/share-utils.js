@@ -1,7 +1,5 @@
-"use strict";
-
 ["exit", "file", "validate"].forEach((method) => {
-  exports[method] = require(`./lib/${m}`);
+  Object.assign(exports, require(`./${method}`));
 });
 
 exports.chalk = require("chalk");
