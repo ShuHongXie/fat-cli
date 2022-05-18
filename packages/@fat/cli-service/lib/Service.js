@@ -46,6 +46,7 @@ module.exports = class Service {
         config = merge(config, fn);
       }
     });
+    return config;
   }
   // 初始化
   init(mode) {
