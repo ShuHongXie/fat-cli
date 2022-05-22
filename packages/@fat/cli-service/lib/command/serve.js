@@ -9,7 +9,7 @@ const validateWebpackConfig = require("../utils/validateWebpackConfig");
 module.exports = (plugin, options) => {
   plugin.registerCommand("serve", {}, async () => {
     const webpackConfig = plugin.resolveWebpackConfig();
-    console.log(webpackConfig);
+    console.log("serveConfig", webpackConfig, options);
 
     // 检测配置错误
     validateWebpackConfig(webpackConfig, plugin, options);

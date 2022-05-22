@@ -46,6 +46,7 @@ module.exports = class Service {
         config = merge(config, fn);
       }
     });
+    console.log("resolveConfig", config);
     return config;
   }
   // 初始化
@@ -57,6 +58,7 @@ module.exports = class Service {
     this.loadEnv();
     const userConfig = this.loadUserConfig();
     this.userConfig = defaultsDeep(defaults(), userConfig);
+    console.log("useconfig", this.userConfig);
     // 插件应用
     this.plugins.forEach(({ id, apply }) => {
       apply(new Plugin(id, this), this.userConfig);

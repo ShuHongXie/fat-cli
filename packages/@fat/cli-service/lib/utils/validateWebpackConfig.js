@@ -4,7 +4,7 @@ module.exports = function validateWebpackConfig(
   options,
   target = "app"
 ) {
-  console.log(webpackConfig);
+  console.log(webpackConfig, "---");
   const singleConfig = Array.isArray(webpackConfig)
     ? webpackConfig[0]
     : webpackConfig;
