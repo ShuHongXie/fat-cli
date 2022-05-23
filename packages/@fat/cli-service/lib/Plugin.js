@@ -16,12 +16,15 @@ module.exports = class Plugin {
     this.service.commands[name] = fn;
   }
 
-  /**
-   * @description:
-   * @param {*}
-   * @return {*}
-   */
   resolveWebpackConfig() {
     this.service.resolveWebpackConfig();
+  }
+
+  getCwd() {
+    return this.service.context;
+  }
+
+  resolve(_path) {
+    return path.resolve(this.service.context, _path);
   }
 };

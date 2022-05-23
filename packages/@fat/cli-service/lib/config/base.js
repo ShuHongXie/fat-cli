@@ -1,6 +1,4 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 
 module.exports = (api, options) => {
   api.chainWebpack(webpackConfig => {
@@ -39,31 +37,29 @@ module.exports = (api, options) => {
         .path(api.resolve(options.outputDir))
         .filename(isLegacyBundle ? '[name]-legacy.js' : '[name].js')
         .publicPath(options.publicPath)
+        webpackConfig.module
+      .noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
+
+    webpackConfig.module
+      .rule('mjs')
+        .test(/\.mjs$/)
+        .include
+          .add(/node_modules/)
+          .end()
+        .type('javascript/auto')
+    // vue-loader模板解析
+    webpackConfig.module
+      .rule('vue')
+        .test(/\.vue$/)
+        .use('vue-loader')
+        .end()
+      .loader(requuire('vue-loader'))
+      .end()
+
+    webpackConfig
+      .plugin('vue-loader')
+        .use(require('vue-loader-v16').VueLoaderPlugin)
+
+    // -----静态资源处理
   }
 }
-
-module.exports = () => ({
-  entry: [
-    // Runtime code for hot module replacement
-    "webpack/hot/dev-server.js",
-    // Dev server client for web socket transport, hot and live reload logic
-    "webpack-dev-server/client/index.js?hot=true&live-reload=true",
-    path.resolve(process.cwd(), "./index.js"),
-  ],
-  output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
-  },
-  devtool: "inline-source-map",
-  plugins: [
-    // Plugin for hot module replacement
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve(process.cwd(), "./lib/config/default.html"),
-      templateParameters: {
-        title: "谢大人的框架",
-      },
-    }),
-  ],
-});
