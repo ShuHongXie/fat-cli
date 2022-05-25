@@ -24,6 +24,7 @@ config.module
   .include.add(/node_modules/)
   .end()
   .type("javascript/auto");
+  
 
 // Export the completed configuration object to be consumed by webpack
 module.exports = config.toConfig();

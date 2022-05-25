@@ -1,24 +1,18 @@
-module.exports = (api, options) => {
-  console.log(api, options);
+module.exports = (plugin, options) => {
+  console.log(plugin, options);
   const getAssetPath = require("../utils/formatAsset");
+  const maxLimit = 4 * 1024; // 4kb
   const genAssetSubPath = (dir) => {
     return getAssetPath(
       options,
       `${dir}/[name]${options.filenameHashing ? ".[hash:8]" : ""}.[ext]`
     );
   };
-
-  return {
-    entry: [
-      // 运行时代码热更新
-      "webpack/hot/dev-server.js",
-      // 本地服务器socket转换 Dev server client for web socket transport, hot and live reload logic
-      "webpack-dev-server/client/index.js?hot=true&live-reload=true",
-      api.resolve("./src/main.js"),
-    ],
+  plugin.addBuildItConfig({
+    entry: plugin.resolve("./src/main.js"),
     output: {
       filename: "[name].bundle.js",
-      path: api.resolve("./dist"),
+      path: plugin.resolve("./dist"),
       publicPath: options.publicPath,
       clean: true,
     },
@@ -49,7 +43,7 @@ module.exports = (api, options) => {
           },
           parser: {
             dataUrlCondition: {
-              maxSize: 4 * 1024, // 默认是小于8kb时会生成base64的url
+              maxSize: maxLimit, // 默认是小于8kb时会生成base64的url
             },
           },
         },
@@ -70,7 +64,7 @@ module.exports = (api, options) => {
           },
           parser: {
             dataUrlCondition: {
-              maxSize: 4 * 1024, // 默认是小于8kb时会生成base64的url
+              maxSize: maxLimit, // 默认是小于8kb时会生成base64的url
             },
           },
         },
@@ -83,7 +77,7 @@ module.exports = (api, options) => {
           },
           parser: {
             dataUrlCondition: {
-              maxSize: 4 * 1024, // 默认是小于8kb时会生成base64的url
+              maxSize: maxLimit, // 默认是小于8kb时会生成base64的url
             },
           },
         },
@@ -102,25 +96,5 @@ module.exports = (api, options) => {
       // vue-loader
       new require("vue-loader").VueLoaderPlugin(),
     ],
-  };
+  });
 };
-
-// module.exports = (api, options) => {
-//   api.chainWebpack(webpackConfig => {
-//     const isLegacyBundle = process.env.VUE_CLI_MODERN_MODE && !process.env.VUE_CLI_MODERN_BUILD
-//     const resolveLocal = require('../util/resolveLocal')
-//     const getAssetPath = require('../util/getAssetPath')
-//     const inlineLimit = 4096
-
-// const genUrlLoaderOptions = dir => {
-//   return {
-//     limit: inlineLimit,
-//     // use explicit fallback to avoid regression in url-loader>=1.1.0
-//     fallback: {
-//       loader: require.resolve('file-loader'),
-//       options: {
-//         name: genAssetSubPath(dir)
-//       }
-//     }
-//   }
-// }

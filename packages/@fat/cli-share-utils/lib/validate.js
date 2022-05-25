@@ -1,6 +1,6 @@
 const { exit } = require("./exit");
 exports.createSchema = (fn) => {
-  console.log("调用");
+  console.log("调用createSchema");
   return fn(require("joi"));
 };
 

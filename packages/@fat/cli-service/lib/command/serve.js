@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const webpackDevServer = require("webpack-dev-server");
 const { merge } = require("webpack-merge");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
-const defaultConfig = require("../config/base")();
+
 const { validate } = require("@fat/cli-share-utils");
 const validateWebpackConfig = require("../utils/validateWebpackConfig");
 
@@ -45,20 +45,23 @@ module.exports = (plugin, options) => {
       webpackConfig.devServer || {}
     );
 
-    const config = merge(defaultConfig, {
-      mode: "development",
-      plugins: [
-        new FriendlyErrorsWebpackPlugin({
-          // 成功的时候输出
-          compilationSuccessInfo: {
-            // messages: [`Your application is running here: http://localhost:8080`]
-          },
-          // 是否每次都清空控制台
-          clearConsole: true,
-        }),
-      ],
-      stats: "errors-only",
-    });
+    const config = merge(
+      {},
+      {
+        mode: "development",
+        plugins: [
+          new FriendlyErrorsWebpackPlugin({
+            // 成功的时候输出
+            compilationSuccessInfo: {
+              // messages: [`Your application is running here: http://localhost:8080`]
+            },
+            // 是否每次都清空控制台
+            clearConsole: true,
+          }),
+        ],
+        stats: "errors-only",
+      }
+    );
     // webpack配置
     const compiler = webpack(config);
     // const devServerConfig = {

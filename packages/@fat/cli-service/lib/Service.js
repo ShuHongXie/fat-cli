@@ -14,7 +14,9 @@ module.exports = class Service {
     // webpack原生配置
     this.webpackRawConfigFns = [];
     // webpack-chain独立配置
-    this.webpackChainFns = [];
+    // this.webpackChainFns = [];
+    // 其他内置的附加文件的基础webpack配置
+    this.buitInConfig = [];
     // 负担执行命令
     this.commands = {};
     // 负担相关配置项
@@ -30,21 +32,22 @@ module.exports = class Service {
   }
   // webpack-chain配置解析
   // 文档地址 https://github.com/neutrinojs/webpack-chain
-  resolveChainableWebpackConfig() {
-    const chainableConfig = new Config();
-    // apply chains
-    this.webpackChainFns.forEach((fn) => fn(chainableConfig));
-    return chainableConfig;
-  }
-  resolveWebpackConfig(chainableConfig = this.resolveChainableWebpackConfig()) {
-    let config = chainableConfig.toConfig();
+  // resolveChainableWebpackConfig() {
+  //   const chainableConfig = new Config();
+  //   // apply chains
+  //   this.webpackChainFns.forEach((fn) => fn(chainableConfig));
+  //   return chainableConfig;
+  // }
+  resolveBuildInWebpackConfig() {}
+
+  resolveWebpackConfig() {
+    let config = {};
+    this.buitInConfig.forEach((conf) => {
+      config = merge(config, conf);
+    });
+
     this.webpackRawConfigFns.forEach((fn) => {
-      if (typeof fn === "function") {
-        const res = fn(config);
-        config = merge(config, res || {});
-      } else {
-        config = merge(config, fn);
-      }
+      config = merge(config, fn);
     });
     console.log("resolveConfig", config);
     return config;
@@ -61,13 +64,15 @@ module.exports = class Service {
     console.log("useconfig", this.userConfig);
     // 插件应用
     this.plugins.forEach(({ id, apply }) => {
+      console.log(id);
       apply(new Plugin(id, this), this.userConfig);
     });
     // 收集webpack-chain配置和configureWebpack配置
-    const { chainWebpack, configureWebpack } = this.userConfig;
-    if (chainWebpack) {
-      this.webpackChainFns.push(chainWebpack);
-    }
+    // 2022-05-25 webpack-chain决定不采用 configureWebpack只采用配置形式
+    const { configureWebpack } = this.userConfig;
+    // if (chainWebpack) {
+    //   this.webpackChainFns.push(chainWebpack);
+    // }
     if (configureWebpack) {
       this.webpackRawConfigFns.push(configureWebpack);
     }
@@ -150,15 +155,18 @@ module.exports = class Service {
 
   // 初始化插件 插件解析
   resolvePlugins() {
+    console.log("进入resolve");
     const formatPlugins = (id) => ({
       id: id.replace(/^.\//, "built-it:"),
       apply: require(id),
     });
 
-    const defaultPlugins = ["./command/serve", "./command/build"].map(
-      formatPlugins
-    );
-
+    const defaultPlugins = [
+      "./command/serve",
+      "./command/build",
+      "./config/base",
+    ].map(formatPlugins);
+    console.log(defaultPlugins, "-----------------");
     return defaultPlugins;
   }
 };
