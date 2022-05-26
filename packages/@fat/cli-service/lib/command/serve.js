@@ -3,7 +3,6 @@ const webpackDevServer = require("webpack-dev-server");
 const { merge } = require("webpack-merge");
 const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 
-const { validate } = require("@fat/cli-share-utils");
 const validateWebpackConfig = require("../utils/validateWebpackConfig");
 
 // module.exports = () => ({
@@ -14,23 +13,12 @@ const validateWebpackConfig = require("../utils/validateWebpackConfig");
 //     "webpack-dev-server/client/index.js?hot=true&live-reload=true",
 //     path.resolve(process.cwd(), "./index.js"),
 //   ],
-//   output: {
-//     filename: "[name].bundle.js",
-//     path: path.resolve(__dirname, "dist"),
-//     clean: true,
-//   },
-//   devtool: "inline-source-map",
-//   plugins: [
-//     // Plugin for hot module replacement
-//     new webpack.HotModuleReplacementPlugin(),
-//     new HtmlWebpackPlugin({
-//       template: path.resolve(process.cwd(), "./lib/config/default.html"),
-//       templateParameters: {
-//         title: "谢大人的框架",
-//       },
-//     }),
-//   ],
 // });
+const defaults = {
+  host: "0.0.0.0",
+  port: 8080,
+  https: false,
+};
 
 module.exports = (plugin, options) => {
   plugin.registerCommand("serve", {}, async () => {
@@ -39,11 +27,16 @@ module.exports = (plugin, options) => {
 
     // 检测配置错误
     validateWebpackConfig(webpackConfig, plugin, options);
+    // 本地devServer和用户自定义devServer混合
 
     const devServerConfig = Object.assign(
       options.devServer,
       webpackConfig.devServer || {}
     );
+
+    const useHttps = devServerConfig.https || defaults.https;
+    const protocol = useHttps ? "https" : "http";
+    const port = devServerConfig.prot || defaults.port;
 
     const config = merge(
       {},
