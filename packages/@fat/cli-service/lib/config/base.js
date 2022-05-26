@@ -1,3 +1,8 @@
+const webpack = require("webpack");
+const { VueLoaderPlugin } = require("vue-loader");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+
 module.exports = (plugin, options) => {
   console.log(plugin, options);
   const getAssetPath = require("../utils/formatAsset");
@@ -29,13 +34,13 @@ module.exports = (plugin, options) => {
         },
         {
           test: /\.vue$/,
-          loader: require("vue-loader"),
+          loader: "vue-loader",
         },
         // webpack5使用新的asset module替代url-loader,raw-loader,file-loader
         // resource 和 inline 之间进行选择：小于 8kb 的文件，将会视为 inline 模块类型，
         // 否则会被视为 resource 模块类型。
         {
-          test: /(jpe?g|png|gif|webp)(\?.*)?$)/,
+          test: /\.(png|jpe?g|gif|webp)(\?.*)?$/,
           type: "asset",
           generator: {
             // 自定义名称，会覆盖output.assetModuleFilename配置
@@ -94,7 +99,7 @@ module.exports = (plugin, options) => {
         },
       }),
       // vue-loader
-      new require("vue-loader").VueLoaderPlugin(),
+      new VueLoaderPlugin(),
     ],
   });
 };
