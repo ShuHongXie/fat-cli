@@ -18,15 +18,16 @@ module.exports = (plugin, options) => {
     output = {};
   // html-webpack-plugin默认配置，用户可能配置了pages
   // 如果配置了pages那么相应的entry，output都需要做单独处理
-  const { htmlWebpackConfig, newConfigPagesEntry } = formatEntry(options);
+  const { htmlWebpackConfig, newConfigPagesEntry = [] } = formatEntry(options);
   newConfigPagesEntry.forEach((config) => {
     entry[config.entryName] = config.entryPath;
   });
   newConfigPagesEntry.forEach((config) => {
     output;
   });
+
   // 增加默认配置
-  plugin.addBuildItConfig({
+  const baseConfig = {
     entry: output.pages ? entry : plugin.resolve("./src/main.js"),
     output: {
       filename: "[name].bundle.js",
@@ -104,15 +105,23 @@ module.exports = (plugin, options) => {
     plugins: [
       // Plugin for hot module replacement
       new webpack.HotModuleReplacementPlugin(),
-      // html-wepback-plugin
-      new HtmlWebpackPlugin({
-        template: path.resolve(process.cwd(), "./lib/config/default.html"),
-        templateParameters: {
-          title: "谢大人的框架",
-        },
-      }),
       // vue-loader
       new VueLoaderPlugin(),
     ],
-  });
+  };
+  // html-wepback-plugin处理
+  if (htmlWebpackConfig && htmlWebpackConfig.length) {
+    baseConfig.plugins = baseConfig.plugins.concat(htmlWebpackConfig);
+  } else {
+    baseConfig.plugins.push(
+      new HtmlWebpackPlugin({
+        template: path.resolve(process.cwd(), "./lib/config/default.html"),
+        templateParameters: {
+          title: "我giao",
+        },
+      })
+    );
+  }
+
+  plugin.addBuildItConfig(baseConfig);
 };
