@@ -28,7 +28,7 @@ module.exports = (plugin, options) => {
 
   // 增加默认配置
   const baseConfig = {
-    entry: output.pages ? entry : plugin.resolve("./src/main.js"),
+    entry: options.pages ? entry : { app: plugin.resolve("./src/main.js") },
     output: {
       filename: "[name].bundle.js",
       path: plugin.resolve(`./${options.outputDir}`),
@@ -36,7 +36,7 @@ module.exports = (plugin, options) => {
       clean: true,
     },
     devtool: "inline-source-map",
-    modules: {
+    module: {
       // vue等大型库已经对commonjs有版本支持，所以不需要再次解析，这样可以提高加载速度
       noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,
       rules: [
@@ -103,8 +103,6 @@ module.exports = (plugin, options) => {
       ],
     },
     plugins: [
-      // Plugin for hot module replacement
-      new webpack.HotModuleReplacementPlugin(),
       // vue-loader
       new VueLoaderPlugin(),
     ],
