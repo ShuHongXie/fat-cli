@@ -19,6 +19,7 @@ module.exports = function formatEntry(api, entryMap) {
             `./public/${existEntryFile ? entry : "index"}.html`
           ),
           filename: `${existEntryFile ? entry : "index"}.html`,
+          chunks: ["chunk-vendors", "chunk-common", entry || "index"],
         })
       );
       newConfigPagesEntry.push({
@@ -34,6 +35,7 @@ module.exports = function formatEntry(api, entryMap) {
         htmlWebpackConfig.push(
           new HtmlWebpackPlugin({
             ...entryMap[entry],
+            chunks: ["chunk-vendors", "chunk-common", entry || "index"],
             template:
               entryMap[entry].template || api.resolve(`./public/index.html`),
           })
