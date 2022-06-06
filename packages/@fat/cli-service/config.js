@@ -30,5 +30,3 @@ const copy = {
 };
 
 module.exports = merge(defaults, copy);
-
-console.log(merge(defaults, copy));

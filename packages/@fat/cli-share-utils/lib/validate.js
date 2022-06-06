@@ -16,7 +16,6 @@ exports.validateSync = (object, schema, cb) => {
 
 // 数据段校验 异步方法
 exports.validate = async (object, schema) => {
-  console.log(object, schema);
   try {
     await schema.validate(object);
   } catch (err) {

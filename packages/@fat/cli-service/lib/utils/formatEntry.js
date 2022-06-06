@@ -1,7 +1,6 @@
 const { isObject, isString, existFile } = require("@fat/cli-share-utils");
 const { isUndefined } = require("lodash");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-console.log(isObject);
 module.exports = function formatEntry(api, entryMap) {
   if (isUndefined(entryMap)) {
     return {};

@@ -73,6 +73,7 @@ module.exports = (plugin, options) => {
       port: port,
       https,
     };
+    console.log("开始启动本地服务器");
 
     // `hot` and `client` options are disabled because we added them manually
     // param1: 自身的devServer设置 param2 webpack实例
@@ -80,7 +81,7 @@ module.exports = (plugin, options) => {
 
     (async () => {
       await server.start();
-      console.log("dev server is running");
+      console.log("===========服务员已经启动");
     })();
   });
 };

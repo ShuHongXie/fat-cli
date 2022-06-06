@@ -1,11 +1,9 @@
-const webpack = require("webpack");
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const formatEntry = require("../utils/formatEntry");
 const path = require("path");
 
 module.exports = (plugin, options) => {
-  console.log(plugin, options);
   const getAssetPath = require("../utils/formatAsset");
   const maxLimit = 4 * 1024; // 4kb
   const genAssetSubPath = (dir) => {
@@ -14,27 +12,16 @@ module.exports = (plugin, options) => {
       `${dir}/[name]${options.filenameHashing ? ".[hash:8]" : ""}.[ext]`
     );
   };
-  const entry = {},
-    output = {};
-  // html-webpack-plugin默认配置，用户可能配置了pages
-  // 如果配置了pages那么相应的entry，output都需要做单独处理
-  const { htmlWebpackConfig, newConfigPagesEntry = [] } = formatEntry(options);
-  newConfigPagesEntry.forEach((config) => {
-    entry[config.entryName] = config.entryPath;
-  });
-  newConfigPagesEntry.forEach((config) => {
-    output;
-  });
 
   // 增加默认配置
   const baseConfig = {
     entry: options.pages ? entry : { app: plugin.resolve("./src/main.js") },
-    output: {
-      filename: "[name].bundle.js",
-      path: plugin.resolve(`./${options.outputDir}`),
-      publicPath: options.publicPath,
-      clean: true,
-    },
+    // output: {
+    //   filename: "[name].bundle.js",
+    //   path: plugin.resolve(`./${options.outputDir}`),
+    //   publicPath: options.publicPath,
+    //   clean: true,
+    // },
     devtool: "inline-source-map",
     module: {
       // vue等大型库已经对commonjs有版本支持，所以不需要再次解析，这样可以提高加载速度
@@ -107,19 +94,6 @@ module.exports = (plugin, options) => {
       new VueLoaderPlugin(),
     ],
   };
-  // html-wepback-plugin处理
-  if (htmlWebpackConfig && htmlWebpackConfig.length) {
-    baseConfig.plugins = baseConfig.plugins.concat(htmlWebpackConfig);
-  } else {
-    baseConfig.plugins.push(
-      new HtmlWebpackPlugin({
-        template: path.resolve(process.cwd(), "./lib/config/default.html"),
-        templateParameters: {
-          title: "我giao",
-        },
-      })
-    );
-  }
 
   plugin.addBuildItConfig(baseConfig);
 };

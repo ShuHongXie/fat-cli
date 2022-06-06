@@ -28,7 +28,6 @@ module.exports = class Service {
       (modes, current) => Object.assign(modes, current.apply.defaultModes),
       {}
     );
-    console.log(this.mode);
   }
   // webpack-chain配置解析
   // 文档地址 https://github.com/neutrinojs/webpack-chain
@@ -61,10 +60,8 @@ module.exports = class Service {
     this.loadEnv();
     const userConfig = this.loadUserConfig();
     this.userConfig = defaultsDeep(defaults(), userConfig);
-    console.log("useconfig", this.userConfig);
     // 插件应用
     this.plugins.forEach(({ id, apply }) => {
-      console.log(id);
       apply(new Plugin(id, this), this.userConfig);
     });
     // 收集webpack-chain配置和configureWebpack配置
@@ -165,8 +162,8 @@ module.exports = class Service {
       "./command/serve",
       "./command/build",
       "./config/base",
+      "./config/app",
     ].map(formatPlugins);
-    console.log(defaultPlugins, "-----------------");
     return defaultPlugins;
   }
 };
