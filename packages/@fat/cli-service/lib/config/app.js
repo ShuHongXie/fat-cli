@@ -8,13 +8,18 @@ module.exports = (plugin, options) => {
   // html-webpack-plugin默认配置，用户可能配置了pages
   // 如果配置了pages那么相应的entry，output都需要做单独处理
   const isProd = process.env.NODE_ENV === "production";
-  const { htmlWebpackConfig, newConfigPagesEntry = [] } = formatEntry(options);
+  const preloadPlugin = require("@vue/preload-webpack-plugin");
+  const {
+    htmlWebpackConfig,
+    preoloadWebpackConfig,
+    newConfigPagesEntry = [],
+  } = formatEntry(plugin, options.entry);
   newConfigPagesEntry.forEach((config) => {
     entry[config.entryName] = config.entryPath;
   });
-  newConfigPagesEntry.forEach((config) => {
-    output;
-  });
+  // newConfigPagesEntry.forEach((config) => {
+  //   output;
+  // });
 
   const outputFileName = getAssetPath(
     options,
@@ -51,19 +56,38 @@ module.exports = (plugin, options) => {
     plugins: [],
   };
 
-  // html-wepback-plugin处理
+  // html-wepback-plugin，preload-webpack-plugin处理
+  // 多个长度在方法里面已经处理了
+  // else逻辑处理单个长度
   if (htmlWebpackConfig && htmlWebpackConfig.length) {
     appConfig.plugins = appConfig.plugins.concat(htmlWebpackConfig);
+    appConfig.plugins = appConfig.plugins.concat(preoloadWebpackConfig);
   } else {
+    // html-webpack-plugin
     appConfig.plugins.push(
       new HtmlWebpackPlugin({
         template: require("path").resolve(
           process.cwd(),
           "./lib/config/default.html"
         ),
+        inject: "body",
         templateParameters: {
           title: "我giao",
         },
+      })
+    );
+    // preoload-webpack-plugin
+    appConfig.plugins.push(
+      new preloadPlugin({
+        rel: "preload",
+        include: "initial",
+        fileBlacklist: [/\.map$/, /hot-update\.js$/],
+      })
+    );
+    appConfig.plugins.push(
+      new preloadPlugin({
+        rel: "prefetch",
+        include: "asyncChunks",
       })
     );
   }
