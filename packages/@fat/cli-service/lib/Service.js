@@ -92,29 +92,32 @@ module.exports = class Service {
         break;
       }
     }
-
+    console.log(configPath);
     if (configPath) {
       let independentConfig;
       try {
-        // 引入配置地址
+        // 加载配置文件
         independentConfig = require(configPath);
-        if (!fileConfig || typeof fileConfig !== "object") {
+        if (!independentConfig || typeof independentConfig !== "object") {
           console.log(
-            `加载错误 ${chalk.bold(fileConfigPath)}: 配置文件应该导出为对象`
+            `加载错误 ${chalk.bold(configPath)}: 配置文件应该导出为对象`
           );
-          fileConfig = null;
+          configPath = null;
         }
       } catch (e) {
-        console.log(`Error loading ${chalk.bold(fileConfigPath)}:`);
+        console.log(`Error loading ${chalk.bold(configPath)}:`);
         throw e;
       }
 
       // 某些配置初始化
-      ensureSlash(resolved, "publicPath");
-      if (typeof resolved.publicPath === "string") {
-        resolved.publicPath = resolved.publicPath.replace(/^\.\//, "");
+      ensureSlash(independentConfig, "publicPath");
+      if (typeof independentConfig.publicPath === "string") {
+        independentConfig.publicPath = independentConfig.publicPath.replace(
+          /^\.\//,
+          ""
+        );
       }
-      removeSlash(resolved, "outputDir");
+      removeSlash(independentConfig, "outputDir");
 
       return independentConfig;
     }

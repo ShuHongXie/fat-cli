@@ -1,6 +1,4 @@
 const { VueLoaderPlugin } = require("vue-loader");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const formatEntry = require("../utils/formatEntry");
 const path = require("path");
 
 module.exports = (plugin, options) => {
@@ -15,13 +13,6 @@ module.exports = (plugin, options) => {
 
   // 增加默认配置
   const baseConfig = {
-    entry: options.pages ? entry : { app: plugin.resolve("./src/main.js") },
-    // output: {
-    //   filename: "[name].bundle.js",
-    //   path: plugin.resolve(`./${options.outputDir}`),
-    //   publicPath: options.publicPath,
-    //   clean: true,
-    // },
     devtool: "inline-source-map",
     module: {
       // vue等大型库已经对commonjs有版本支持，所以不需要再次解析，这样可以提高加载速度
@@ -88,6 +79,9 @@ module.exports = (plugin, options) => {
           },
         },
       ],
+    },
+    resolve: {
+      preferRelative: true,
     },
     plugins: [
       // vue-loader

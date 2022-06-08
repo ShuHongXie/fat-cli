@@ -3,23 +3,19 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = (plugin, options) => {
   const getAssetPath = require("../utils/formatAsset");
   const formatEntry = require("../utils/formatEntry");
-  const entry = {},
-    output = {};
+
   // html-webpack-plugin默认配置，用户可能配置了pages
   // 如果配置了pages那么相应的entry，output都需要做单独处理
   const isProd = process.env.NODE_ENV === "production";
   const preloadPlugin = require("@vue/preload-webpack-plugin");
   const {
     htmlWebpackConfig,
-    preoloadWebpackConfig,
+    preloadWebpackConfig,
     newConfigPagesEntry = [],
-  } = formatEntry(plugin, options.entry);
-  newConfigPagesEntry.forEach((config) => {
-    entry[config.entryName] = config.entryPath;
-  });
-  // newConfigPagesEntry.forEach((config) => {
-  //   output;
-  // });
+  } = formatEntry(plugin, options);
+  console.log(htmlWebpackConfig, preloadWebpackConfig);
+  console.log("------");
+  console.log(newConfigPagesEntry);
 
   const outputFileName = getAssetPath(
     options,
@@ -27,6 +23,10 @@ module.exports = (plugin, options) => {
   );
 
   const appConfig = {
+    entry:
+      !newConfigPagesEntry || Object.keys(newConfigPagesEntry).length
+        ? newConfigPagesEntry
+        : { app: plugin.resolve("./src/main.js") },
     output: {
       filename: outputFileName,
       chunkFilename: outputFileName,
@@ -61,7 +61,7 @@ module.exports = (plugin, options) => {
   // else逻辑处理单个长度
   if (htmlWebpackConfig && htmlWebpackConfig.length) {
     appConfig.plugins = appConfig.plugins.concat(htmlWebpackConfig);
-    appConfig.plugins = appConfig.plugins.concat(preoloadWebpackConfig);
+    appConfig.plugins = appConfig.plugins.concat(preloadWebpackConfig);
   } else {
     // html-webpack-plugin
     appConfig.plugins.push(
