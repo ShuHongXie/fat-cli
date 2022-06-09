@@ -13,9 +13,6 @@ module.exports = (plugin, options) => {
     preloadWebpackConfig,
     newConfigPagesEntry = [],
   } = formatEntry(plugin, options);
-  console.log(htmlWebpackConfig, preloadWebpackConfig);
-  console.log("------");
-  console.log(newConfigPagesEntry);
 
   const outputFileName = getAssetPath(
     options,
