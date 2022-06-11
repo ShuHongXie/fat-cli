@@ -1,8 +1,6 @@
-const { VueLoaderPlugin } = require("vue-loader");
-const path = require("path");
-
 module.exports = (plugin, options) => {
   const getAssetPath = require("../utils/formatAsset");
+  const { VueLoaderPlugin } = require("vue-loader");
   const maxLimit = 4 * 1024; // 4kb
   const genAssetSubPath = (dir) => {
     return getAssetPath(
@@ -16,7 +14,7 @@ module.exports = (plugin, options) => {
     devtool: "inline-source-map",
     module: {
       // vue等大型库已经对commonjs有版本支持，所以不需要再次解析，这样可以提高加载速度
-      noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,
+      // noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,
       rules: [
         {
           test: /\.mjs$/,
@@ -27,6 +25,15 @@ module.exports = (plugin, options) => {
         {
           test: /\.vue$/,
           loader: "vue-loader",
+        },
+        {
+          test: /\.js$/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: [["@babel/preset-env", { targets: "defaults" }]],
+            },
+          },
         },
         // webpack5使用新的asset module替代url-loader,raw-loader,file-loader
         // resource 和 inline 之间进行选择：小于 8kb 的文件，将会视为 inline 模块类型，

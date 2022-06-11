@@ -21,10 +21,6 @@ function genHistoryFallback(baseUrl, pages = {}) {
       from: new RegExp(`^/${name}`),
       to: path.posix.join(baseUrl, pages[name].filename || `${name}.html`),
     }));
-  console.log([
-    ...multiPageRewrites,
-    { from: /./, to: path.posix.join(baseUrl, "index.html") },
-  ]);
   return [
     ...multiPageRewrites,
     { from: /./, to: path.posix.join(baseUrl, "index.html") },
@@ -83,7 +79,9 @@ module.exports = (plugin, options) => {
     // https://webpack.docschina.org/guides/hot-module-replacement
     const devServerConfig = {
       hot: false,
-      client: false,
+      client: {
+        overlay: { warnings: false, errors: true },
+      },
       port,
       https,
       historyApiFallback: {

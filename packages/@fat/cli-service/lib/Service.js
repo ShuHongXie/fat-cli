@@ -166,6 +166,7 @@ module.exports = class Service {
       "./command/build",
       "./config/base",
       "./config/css",
+      "./config/eslint",
       "./config/app",
     ].map(formatPlugins);
     return defaultPlugins;
