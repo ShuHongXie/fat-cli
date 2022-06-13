@@ -63,10 +63,7 @@ module.exports = (plugin, options) => {
     // html-webpack-plugin
     appConfig.plugins.push(
       new HtmlWebpackPlugin({
-        template: require("path").resolve(
-          process.cwd(),
-          "./lib/config/default.html"
-        ),
+        template: require("path").resolve(process.cwd(), "public/index.html"),
         inject: "body",
         templateParameters: {
           title: "我giao",
