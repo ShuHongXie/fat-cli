@@ -2,6 +2,7 @@
   "packages": [
     "packages/@wanbiao/*"
   ],
+  "useWorkspaces": true,
   "npmClient": "yarn",
   "version": "0.0.4-alpha.0"
 }

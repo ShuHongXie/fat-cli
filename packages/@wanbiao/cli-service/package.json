@@ -16,7 +16,6 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "http://registry.npm.taobao.org/",
     "access": "public"
   },
   "scripts": {
@@ -62,5 +61,5 @@
   "engines": {
     "node": ">12"
   },
-  "gitHead": "534b8fba36e15dd133eb4a49826e604e1dc95124"
+  "gitHead": "44ea41af134aaaff0056f277cf000d3b0f09a045"
 }

@@ -11,6 +11,9 @@
     "start": "npm run build node bin/xsh-cli-service.js --open",
     "dev": "xsh-cli-service build"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "author": "shuhongxie",
   "license": "ISC",
   "devDependencies": {
