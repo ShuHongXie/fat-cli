@@ -1,6 +1,6 @@
 {
   "name": "@wanbiao/cli-service",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.4-alpha.0",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "",
   "license": "ISC",
@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.18.2",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/preload-webpack-plugin": "^2.0.0",
-    "@wanbiao/cli-share-utils": "^0.0.3-alpha.0",
+    "@wanbiao/cli-share-utils": "^0.0.4-alpha.0",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
