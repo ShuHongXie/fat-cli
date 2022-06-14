@@ -1,6 +1,7 @@
 module.exports = (plugin, options) => {
   const getAssetPath = require("../utils/formatAsset");
   const { VueLoaderPlugin } = require("vue-loader");
+  const path = require("path");
   const maxLimit = 4 * 1024; // 4kb
   const genAssetSubPath = (dir) => {
     return getAssetPath(
@@ -8,10 +9,16 @@ module.exports = (plugin, options) => {
       `${dir}/[name]${options.filenameHashing ? ".[hash:8]" : ""}.[ext]`
     );
   };
-
+  console.log(
+    "cwd",
+    process.cwd(),
+    path.resolve(process.cwd(), "public/index.html"),
+    path.join(process.cwd(), "/node_modules/@fat/cli-service")
+  );
   // 增加默认配置
   const baseConfig = {
     devtool: "inline-source-map",
+    // context: path.join(process.cwd(), "/node_modules/@fat/cli-service"),
     module: {
       // vue等大型库已经对commonjs有版本支持，所以不需要再次解析，这样可以提高加载速度
       // noParse: /^(vue|vue-router|vuex|vuex-router-sync)$/,
@@ -89,6 +96,7 @@ module.exports = (plugin, options) => {
     },
     resolve: {
       preferRelative: true,
+      symlinks: false,
     },
     plugins: [
       // vue-loader
