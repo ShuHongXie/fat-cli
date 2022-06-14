@@ -3,7 +3,7 @@ const dotenvExpand = require("dotenv-expand");
 const path = require("path");
 const Plugin = require("./Plugin");
 const { merge } = require("webpack-merge");
-const { existFile, chalk } = require("@fat/cli-share-utils");
+const { existFile, chalk } = require("@wanbiao/cli-share-utils");
 const defaultsDeep = require("lodash.defaultsdeep");
 const { defaults } = require("./config/options");
 
@@ -82,7 +82,7 @@ module.exports = class Service {
   }
   // 用户配置加载 仅支持外部链接文件
   loadUserConfig() {
-    const defaultFileName = ["./fat.config.js"];
+    const defaultFileName = ["./xsh.config.js"];
     let configPath;
     // 获取配置地址
     for (const item of defaultFileName) {

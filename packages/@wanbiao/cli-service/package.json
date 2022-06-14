@@ -1,12 +1,12 @@
 {
-  "name": "@fat/cli-service",
-  "version": "0.0.1-alpha.0",
+  "name": "@wanbiao/cli-service",
+  "version": "0.0.1-alpha.0+534b8fb",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "",
   "license": "ISC",
   "main": "index.js",
   "bin": {
-    "fat-cli-service": "bin/index.js"
+    "xsh-cli-service": "bin/index.js"
   },
   "directories": {
     "lib": "lib",
@@ -25,9 +25,9 @@
   "dependencies": {
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
-    "@fat/cli-share-utils": "^0.0.1-alpha.0",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/preload-webpack-plugin": "^2.0.0",
+    "@wanbiao/cli-share-utils": "^0.0.1-alpha.0+534b8fb",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
@@ -62,5 +62,5 @@
   "engines": {
     "node": ">12"
   },
-  "gitHead": "133271db47cf231589b18f6a6ac97957f7d0a492"
+  "gitHead": "534b8fba36e15dd133eb4a49826e604e1dc95124"
 }

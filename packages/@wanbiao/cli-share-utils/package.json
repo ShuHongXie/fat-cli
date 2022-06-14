@@ -1,6 +1,6 @@
 {
-  "name": "@fat/cli-share-utils",
-  "version": "0.0.1-alpha.0",
+  "name": "@wanbiao/cli-share-utils",
+  "version": "0.0.1-alpha.0+534b8fb",
   "description": "脚手架外部共享方法",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "https://github.com/ShuHongXie/fat-cli#readme",
@@ -30,5 +30,5 @@
     "chalk": "4.1.2",
     "joi": "^17.6.0"
   },
-  "gitHead": "133271db47cf231589b18f6a6ac97957f7d0a492"
+  "gitHead": "534b8fba36e15dd133eb4a49826e604e1dc95124"
 }

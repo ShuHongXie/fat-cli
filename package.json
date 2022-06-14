@@ -1,15 +1,15 @@
 {
-  "name": "fat-cli",
+  "name": "xsh-cli",
   "version": "1.0.0",
-  "description": "谢树宏的胖脚手架",
+  "description": "谢树宏的脚手架",
   "main": "index.js",
   "bin": {
-    "vue-cli-service": "bin/fat-cli-service.js"
+    "vue-cli-service": "bin/xsh-cli-service.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build node bin/fat-cli-service.js --open",
-    "dev": "fat-cli-service build"
+    "start": "npm run build node bin/xsh-cli-service.js --open",
+    "dev": "xsh-cli-service build"
   },
   "author": "shuhongxie",
   "license": "ISC",

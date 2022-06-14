@@ -1,4 +1,4 @@
-const { createSchema, validate } = require("@fat/cli-share-utils");
+const { createSchema, validate } = require("@wanbiao/cli-share-utils");
 
 const schema = createSchema((joi) =>
   joi.object({

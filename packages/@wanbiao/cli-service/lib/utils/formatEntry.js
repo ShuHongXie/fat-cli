@@ -1,4 +1,4 @@
-const { isObject, isString, existFile } = require("@fat/cli-share-utils");
+const { isObject, isString, existFile } = require("@wanbiao/cli-share-utils");
 const { isUndefined } = require("lodash");
 
 module.exports = function formatEntry(api, options) {
