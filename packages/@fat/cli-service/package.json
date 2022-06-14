@@ -16,7 +16,8 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "http://registry.npm.taobao.org/"
+    "registry": "http://registry.npm.taobao.org/",
+    "access": "public"
   },
   "scripts": {
     "test": "webpack --config ./config.js"
@@ -60,5 +61,6 @@
   },
   "engines": {
     "node": ">12"
-  }
+  },
+  "gitHead": "133271db47cf231589b18f6a6ac97957f7d0a492"
 }
