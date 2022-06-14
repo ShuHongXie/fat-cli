@@ -1,6 +1,6 @@
 {
   "name": "@fat/cli-service",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "",
   "license": "ISC",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@babel/core": "^7.18.2",
     "@babel/preset-env": "^7.18.2",
-    "@fat/cli-share-utils": "^0.0.0",
+    "@fat/cli-share-utils": "^0.0.1-alpha.0",
     "@vue/compiler-sfc": "^3.2.37",
     "@vue/preload-webpack-plugin": "^2.0.0",
     "babel-loader": "^8.2.5",
