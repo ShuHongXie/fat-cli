@@ -1,6 +1,6 @@
 {
   "name": "@wanbiao/cli-share-utils",
-  "version": "0.0.1-alpha.0+534b8fb",
+  "version": "0.0.2-alpha.0",
   "description": "脚手架外部共享方法",
   "author": "谢树宏 <384180258@qq.com>",
   "homepage": "https://github.com/ShuHongXie/fat-cli#readme",
