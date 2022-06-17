@@ -1,19 +1,13 @@
 {
-  "name": "xsh-cli",
+  "name": "wb",
   "version": "1.0.0",
-  "description": "谢树宏的脚手架",
+  "description": "",
   "main": "index.js",
-  "bin": {
-    "vue-cli-service": "bin/xsh-cli-service.js"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build node bin/xsh-cli-service.js --open",
     "dev": "xsh-cli-service build"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "author": "shuhongxie",
   "license": "ISC",
   "devDependencies": {

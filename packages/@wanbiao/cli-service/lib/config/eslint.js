@@ -19,12 +19,12 @@ module.exports = (plugin, options) => {
       new ESLintPlugin({
         context: process.cwd(),
         threads: options.parallel,
-        failOnError: options.lintOnSave === "warning",
-        failOnWarning: options.lintOnSave === "error",
+        failOnError: options.lintOnSave === "error",
+        failOnWarning: options.lintOnSave === "warning",
         quiet: false,
         fix: !!options.lintOnSave,
-        files: ["**.(js|ts|vue)"],
-        extensions: ["**.(js|ts|vue)"],
+        files: ["src/**/*.{js,vue}"],
+        extensions: [".js", ".vue", "src"],
       }),
     ],
   };
