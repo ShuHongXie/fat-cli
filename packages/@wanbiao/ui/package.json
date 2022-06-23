@@ -28,5 +28,9 @@
   },
   "dependencies": {
     "rollup": "^2.75.6"
+  },
+  "devDependencies": {
+    "@dcloudio/vue-cli-plugin-uni": "^2.0.1-34920220609002",
+    "vue-cli-plugin-uni": "^0.0.11"
   }
 }
