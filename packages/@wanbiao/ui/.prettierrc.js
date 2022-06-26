@@ -10,9 +10,9 @@ module.exports = {
     {
       files: '*.json',
       options: {
-        printWidth: 200
-      }
-    }
+        printWidth: 200,
+      },
+    },
   ],
-  arrowParens: 'always'
+  arrowParens: 'always',
 }
