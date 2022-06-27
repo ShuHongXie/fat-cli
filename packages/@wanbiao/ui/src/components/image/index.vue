@@ -135,47 +135,49 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+<style lang="scss">
 .image {
-  display: inline-block;
-  text-align: center;
-  box-sizing: border-box;
-  position: relative;
-  img[lazy='error'] {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  img {
-    max-width: 100%;
-    max-height: 100%;
-    vertical-align: bottom; //解决图片底部空白
-    &[lazy='loaded'] {
-      animation: fadeIn 0.8s;
-    }
-  }
-  .img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
-  // 形状
-  &__shape {
-    // 圆形
-    &--circle {
-      border-radius: 50%;
-      overflow: hidden;
-    }
-  }
+  width: 100px;
+  height: 100px;
 }
+// @keyframes fadeIn {
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }
+// .image {
+//   display: inline-block;
+//   text-align: center;
+//   box-sizing: border-box;
+//   position: relative;
+//   img[lazy='error'] {
+//     position: absolute;
+//     left: 50%;
+//     top: 50%;
+//     transform: translate(-50%, -50%);
+//   }
+//   img {
+//     max-width: 100%;
+//     max-height: 100%;
+//     vertical-align: bottom;
+//     &[lazy='loaded'] {
+//       animation: fadeIn 0.8s;
+//     }
+//   }
+//   .img {
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     object-position: center center;
+//   }
+//   &__shape {
+//     &--circle {
+//       border-radius: 50%;
+//       overflow: hidden;
+//     }
+//   }
+// }
 </style>

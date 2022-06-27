@@ -1,2 +1,2 @@
-import WbImage from './Image.vue'
+import WbImage from './index.vue'
 export default WbImage
