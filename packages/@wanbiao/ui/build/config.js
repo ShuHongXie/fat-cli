@@ -4,6 +4,8 @@ import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import path from 'path'
+import css from 'rollup-plugin-css-only'
+import sass from 'rollup-plugin-sass'
 
 const resolve = (filePath) => {
   return path.join(process.cwd(), filePath)
@@ -20,12 +22,14 @@ const config = []
     },
     plugins: [
       typescript(),
-      vue(),
-      postcss({
-        // extract: true,
-        // extractCss: resolve(`src/packages/${name}/index.css`),
-        // plugins: [autoprefixer(), cssnano()]
-      })
+      vue({ css: false }),
+      css({ output: `${name}.css` })
+
+      // postcss({
+      //   // extract: true,
+      //   // extractCss: resolve(`src/packages/${name}/index.css`),
+      //   // plugins: [autoprefixer(), cssnano()]
+      // })
     ],
     external: ['vue']
   })
