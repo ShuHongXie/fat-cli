@@ -12,6 +12,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import useGlobal from '@/hooks/useGlobal'
+import './index.scss'
 export default defineComponent({
   name: 'wb-image',
   props: {
@@ -134,50 +135,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style lang="scss">
-.image {
-  width: 100px;
-  height: 100px;
-}
-// @keyframes fadeIn {
-//   0% {
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 1;
-//   }
-// }
-// .image {
-//   display: inline-block;
-//   text-align: center;
-//   box-sizing: border-box;
-//   position: relative;
-//   img[lazy='error'] {
-//     position: absolute;
-//     left: 50%;
-//     top: 50%;
-//     transform: translate(-50%, -50%);
-//   }
-//   img {
-//     max-width: 100%;
-//     max-height: 100%;
-//     vertical-align: bottom;
-//     &[lazy='loaded'] {
-//       animation: fadeIn 0.8s;
-//     }
-//   }
-//   .img {
-//     width: 100%;
-//     height: 100%;
-//     object-fit: cover;
-//     object-position: center center;
-//   }
-//   &__shape {
-//     &--circle {
-//       border-radius: 50%;
-//       overflow: hidden;
-//     }
-//   }
-// }
-</style>

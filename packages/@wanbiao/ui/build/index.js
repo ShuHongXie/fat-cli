@@ -1,26 +1,37 @@
-const loadConfigFile = require('rollup/loadConfigFile');
-const path = require('path');
-const rollup = require('rollup');
+import vue from '@vitejs/plugin-vue'
+import typescript from 'rollup-plugin-typescript2'
+import postcss from 'rollup-plugin-postcss'
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
+import path from 'path'
+import { terser } from 'rollup-plugin-terser'
 
+const resolve = (filePath) => {
+  return path.join(process.cwd(), filePath)
+}
 
-loadConfigFile(path.resolve(__dirname, 'config.js'), { format: 'es' }).then(
-  async ({ options, warnings }) => {
-    console.log(`We currently have ${warnings.count} warnings`);
+const config = {
+  input: {},
+  output: [],
+  plugins: [
+    // terser(),
+    vue(),
+    typescript(),
+    postcss({
+      extensions: ['css', 'scss'],
+      extract: true,
+      minimize: true,
+      plugins: [autoprefixer(), cssnano()]
+    })
+  ],
+  external: ['vue']
+}
+;['image'].forEach((name) => {
+  config.input[name] = resolve(`src/components/${name}/index.ts`)
+  config.output.push({
+    dir: resolve(`packages/${name}`),
+    name: `index.js`
+  })
+})
 
-    // This prints all deferred warnings
-    warnings.flush();
-
-    // options is an array of "inputOptions" objects with an additional "output"
-    // property that contains an array of "outputOptions".
-    // The following will generate all outputs for all inputs, and write them to disk the same
-    // way the CLI does it:
-    for (const optionsObj of options) {
-      console.log(optionsObj);
-      const bundle = await rollup.rollup(optionsObj);
-      await Promise.all(optionsObj.output.map(bundle.write));
-    }
-
-    // You can also pass this directly to "rollup.watch"
-    // rollup.watch(options);
-  }
-);
+export default config

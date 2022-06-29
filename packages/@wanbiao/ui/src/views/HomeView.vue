@@ -12,11 +12,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import WbImage from '@/components/Image.vue'
+// import WbImage from '~/packages/image/image.js'
 export default defineComponent({
   name: 'HomeView',
   components: {
-    WbImage
+    // WbImage
   }
 })
 </script>
