@@ -5,12 +5,15 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import path from 'path';
 import { terser } from 'rollup-plugin-terser';
+import { RollupOptions, OutputOptions } from 'rollup';
 
-const resolve = (filePath) => {
+type Input = { [entryAlias: string]: string };
+
+const resolve = (filePath: string) => {
   return path.join(process.cwd(), filePath);
 };
 
-const config = {
+const config: RollupOptions = {
   input: {},
   output: [],
   plugins: [
@@ -27,8 +30,8 @@ const config = {
   external: ['vue']
 };
 ['image'].forEach((name) => {
-  config.input[name] = resolve(`src/components/${name}/index.ts`);
-  config.output.push({
+  (config.input as Input)[name] = resolve(`src/components/${name}/index.ts`).toString();
+  (config.output as OutputOptions[]).push({
     dir: resolve(`packages/${name}`),
     name: `index.js`
   });

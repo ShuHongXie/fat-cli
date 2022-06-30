@@ -1,5 +1,5 @@
 <template>
-  <div :class="setImgClass" :style="setImgStyle" @click="$emit('click')" class="image">
+  <div :class="setImgClass" :style="setImgStyle" @click="$emit('click')" class="wb-image">
     <img
       :src="url"
       v-lazy="lazyLoad"
@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import useGlobal from '@/hooks/useGlobal'
-import './index.scss'
+import { defineComponent, computed } from 'vue';
+import useGlobal from '@/hooks/useGlobal';
+import './index.scss';
 export default defineComponent({
   name: 'wb-image',
   props: {
@@ -24,14 +24,14 @@ export default defineComponent({
       type: String,
       default: 'png',
       validator: (value: string) => {
-        return ['png', 'jpg', 'webp', 'bmp', 'gif'].indexOf(value) !== -1
+        return ['png', 'jpg', 'webp', 'bmp', 'gif'].indexOf(value) !== -1;
       }
     },
     originType: {
       type: String,
       default: 'aliyuncs',
       validator: (value: string) => {
-        return ['aliyuncs', 'static', 'hide'].indexOf(value) !== -1
+        return ['aliyuncs', 'static', 'hide'].indexOf(value) !== -1;
       }
     },
     lazyLoad: {
@@ -62,7 +62,7 @@ export default defineComponent({
       type: String,
       default: 'square',
       validator: (value: string) => {
-        return ['circle', 'square'].indexOf(value) !== -1
+        return ['circle', 'square'].indexOf(value) !== -1;
       }
     },
     radius: {
@@ -79,8 +79,8 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const { global } = useGlobal()
-    console.log(global.OSS)
+    const { global } = useGlobal();
+    console.log(global.OSS);
 
     // 图片源
     const origin = computed(() => {
@@ -88,42 +88,42 @@ export default defineComponent({
         aliyuncs: global.OSS,
         static: global.OSS_STATIC,
         hide: ''
-      }
-      return ORIGINS[props.originType as keyof typeof ORIGINS]
-    })
+      };
+      return ORIGINS[props.originType as keyof typeof ORIGINS];
+    });
     // 错误图片显示
     const imgObj = computed(() => {
       return {
         src: url,
         error: props.errorSrc || global.ERROR_IMG
-      }
-    })
+      };
+    });
     // OSS查询参数
-    const setParameter = computed(() => (props.parameter ? '/resize,' + props.parameter : ''))
+    const setParameter = computed(() => (props.parameter ? '/resize,' + props.parameter : ''));
     // 图片样式
     const setImgStyle = computed(() => {
-      const { width, height, radius } = props
+      const { width, height, radius } = props;
       return {
         width: width || '100%',
         height: height || '100%',
         'border-radius': radius || 'none',
         overflow: radius ? 'hidden' : ''
-      }
-    })
+      };
+    });
     // 图片类
-    const setImgClass = computed(() => ['image__shape--' + props.shape])
+    const setImgClass = computed(() => ['wb-image__shape--' + props.shape]);
     // 图片连接
     const url = computed(() => {
-      const { type, quality, src, watermark } = props
-      const imgType = type === 'jpg' ? '/format,jpg' : ''
-      const _origin = /http/i.test(src) ? '' : origin.value
+      const { type, quality, src, watermark } = props;
+      const imgType = type === 'jpg' ? '/format,jpg' : '';
+      const _origin = /http/i.test(src) ? '' : origin.value;
       const _parameter = props.parameter
         ? `?x-oss-process=image${setParameter.value}/quality,q_${quality}${imgType}${
             watermark || ''
           }`
-        : ``
-      return src ? _origin + src + _parameter : ''
-    })
+        : ``;
+      return src ? _origin + src + _parameter : '';
+    });
     return {
       origin,
       imgObj,
@@ -131,7 +131,7 @@ export default defineComponent({
       setImgStyle,
       setImgClass,
       url
-    }
+    };
   }
-})
+});
 </script>
