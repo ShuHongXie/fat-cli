@@ -1,22 +1,25 @@
 <template>
   <div class="home">
+    1231
     <img alt="Vue logo" src="../assets/logo.png" />
-    <wb-image
-      src="/t/m/images/1/head-logo.png"
-      origin-type="static"
-      width="48px"
-      height="24px"
-    ></wb-image>
+    <wb-transition-box :data="data">
+      <template v-slot:default="{ item }">
+        <div class="box">{{ item }}</div>
+      </template>
+    </wb-transition-box>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-// import WbImage from '~/packages/image/image.js'
-export default defineComponent({
-  name: 'HomeView',
-  components: {
-    // WbImage
-  }
-})
+<script lang="ts" setup>
+import WbTransitionBox from '@/components/transition-box/index.vue';
+const data = [1, 2, 3, 4];
 </script>
+
+<style>
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: brown;
+  margin-right: 4px;
+}
+</style>

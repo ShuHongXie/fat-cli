@@ -1,0 +1,32 @@
+.wb-list {
+  // display: flex;
+  // flex-direction: column;
+  &-empty {
+    margin-top: 100px;
+  }
+  &-error {
+    margin-top: 100px;
+    &__retry {
+      // display: inline-block;
+      width: 200px;
+      margin: auto;
+      padding: 8px 10px;
+      font-size: 28px;
+      color: #0078ff;
+      border: 2px solid #0078ff;
+      border-radius: 60px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  &-no-more {
+    @include center;
+    padding: 30px 0;
+  }
+  &-loading {
+    text-align: center;
+    padding: 30px 0;
+  }
+}
