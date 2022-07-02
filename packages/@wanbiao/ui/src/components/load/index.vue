@@ -1,15 +1,16 @@
 <template>
   <div class="wb-load">
-    <div class="wb-load__loading" v-if="!load">
+    <div class="wb-load__loading" v-if="!loaded">
       <span>{{ loadingText }}</span>
       <!-- <DotLoading color="currentColor" /> -->
     </div>
-    <span class="wb-load__loaded">{{ loadedText }}</span>
+    <span v-else class="wb-load__loaded">{{ loadedText }}</span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import './index.scss';
+import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'wb-load',
   props: {

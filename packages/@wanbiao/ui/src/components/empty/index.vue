@@ -1,12 +1,11 @@
 <template>
   <div class="wb-empty">
     <wb-image
-      :width="emptyImageWidth"
-      :height="emptyImageHeight"
+      :style="emptyImageStyle"
       :originType="isStatic ? 'static' : 'aliyuncs'"
       :src="emptyImage"
     />
-    <text class="wb-empty__text”">{{ emptyText }}</text>
+    <span class="wb-empty__text”">{{ emptyText }}</span>
   </div>
 </template>
 
@@ -20,22 +19,23 @@ export default defineComponent({
     WbImage
   },
   props: {
-    emptyImageWidth: {
-      type: Number,
-      default: 0
+    emptyImageStyle: {
+      type: Object,
+      default() {
+        return { width: '120px', height: '120px' };
+      }
     },
-    emptyImageHeight: Number,
     isStatic: {
       type: Boolean,
-      default: false
+      default: true
     },
     emptyImage: {
       type: String,
-      default: ''
+      default: '/p/share/mp/images/result__empty.png'
     },
     emptyText: {
       type: String,
-      default: ''
+      default: '没有找到相关内容~'
     }
   }
 });

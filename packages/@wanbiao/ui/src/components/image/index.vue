@@ -76,6 +76,12 @@ export default defineComponent({
     watermark: {
       type: String,
       default: ''
+    },
+    style: {
+      type: Object,
+      default() {
+        return {};
+      }
     }
   },
   setup(props) {
@@ -107,7 +113,8 @@ export default defineComponent({
         width: width || '100%',
         height: height || '100%',
         'border-radius': radius || 'none',
-        overflow: radius ? 'hidden' : ''
+        overflow: radius ? 'hidden' : '',
+        ...props.style
       };
     });
     // 图片类
