@@ -1,24 +1,21 @@
 <template>
-  <div :class="setImgClass" :style="setImgStyle" @click="$emit('click')" class="wb-image">
-    <img
-      :src="url"
-      v-lazy="lazyLoad"
-      :class="imgCover ? 'img' : ''"
-      @load="$emit('show', $event)"
-    />
+  <div :class="setImgClass" :style="setImgStyle" @click.stop="$emit('click')" class="wb-image">
+    <img :src="url" v-lazy="lazyLoad" :style="{ objectFit }" @load="$emit('show', $event)" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, PropType } from 'vue';
 import useGlobal from '@/hooks/useGlobal';
 import './index.scss';
+import { ObjectFitProperty } from 'csstype';
 export default defineComponent({
   name: 'wb-image',
   props: {
     src: {
       type: String,
-      default: ''
+      default: '',
+      required: true
     },
     type: {
       type: String,
@@ -48,7 +45,7 @@ export default defineComponent({
     },
     parameter: {
       type: String,
-      default: ''
+      default: '' // m_fill,w_100,h_100
     },
     quality: {
       type: Number,
@@ -69,10 +66,6 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    imgCover: {
-      type: Boolean,
-      default: false
-    },
     watermark: {
       type: String,
       default: ''
@@ -81,6 +74,13 @@ export default defineComponent({
       type: Object,
       default() {
         return {};
+      }
+    },
+    objectFit: {
+      type: String as PropType<ObjectFitProperty>,
+      default: 'initial',
+      validator: (value: string) => {
+        return ['initial', 'fill', 'contain', 'cover', 'none', 'scale-down'].indexOf(value) !== -1;
       }
     }
   },
@@ -109,9 +109,17 @@ export default defineComponent({
     // 图片样式
     const setImgStyle = computed(() => {
       const { width, height, radius } = props;
+      console.log({
+        width: `${width}px` || '100%',
+        height: `${height}px` || '100%',
+        'border-radius': radius || 'none',
+        overflow: radius ? 'hidden' : '',
+        ...props.style
+      });
+
       return {
-        width: width || '100%',
-        height: height || '100%',
+        width: `${width}px` || '100%',
+        height: `${height}px` || '100%',
         'border-radius': radius || 'none',
         overflow: radius ? 'hidden' : '',
         ...props.style

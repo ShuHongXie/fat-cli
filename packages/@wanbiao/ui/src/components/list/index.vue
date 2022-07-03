@@ -8,6 +8,10 @@
         v-if="!$slots.customEmpty"
         :empty-text="emptyText"
       />
+      <!--
+        @slot 自定义空白区插槽
+        @binding vue-component
+      -->
       <slot v-else name="custom-empty"></slot>
     </div>
     <!-- 错误区域 -->
@@ -15,10 +19,18 @@
       <span class="wb-list-error__retry" @click="$emit('retry')" v-if="!$slots.customError">
         重新加载
       </span>
+      <!--
+        @slot 自定义错误区插槽
+        @binding vue-component
+      -->
       <slot v-else name="custom-error"></slot>
     </div>
     <!-- 内容显示区域 -->
     <div class="wb-list-content" :class="{ 'wb-list-content--flex': enableFlex }">
+      <!--
+        @slot 默认内容区插槽
+        @binding vue-component
+      -->
       <slot></slot>
     </div>
     <!--  加载/底部加载更多区域 -->
@@ -28,6 +40,10 @@
         :loadedText="status === 'NO_MORE' ? '加载中' : '没有更多了哦~'"
         v-if="!$slots.customLoad"
       />
+      <!--
+        @slot 自定义加载区插槽
+        @binding vue-component
+      -->
       <slot v-else name="custom-load"></slot>
     </div>
   </div>
@@ -35,8 +51,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import WbEmpty from '../empty';
-import WbLoad from '../load';
+import WbEmpty from '../empty/index.ts';
+import WbLoad from '../load/index.ts';
+import './index.scss';
 export default defineComponent({
   name: 'wb-list',
   components: {

@@ -1,10 +1,5 @@
 <template>
-  <i
-    class="wb-icon iconfont"
-    :class="[icon, customClass]"
-    :style="styles"
-    @click.stop="$emit('click')"
-  ></i>
+  <i :class="classList" :style="styles" @click.stop="$emit('click')"></i>
 </template>
 
 <script lang="ts">
@@ -35,15 +30,24 @@ export default defineComponent({
       }
     }
   },
+  emits: ['click'],
   setup(props) {
+    const classList = computed(() => ({
+      [`wb-icon iconfont`]: true,
+      [props.icon]: true,
+      [props.customClass]: true
+    }));
+
     const styles = computed(() => {
       return {
         fontSize: props.size + 'px',
         color: props.color
       };
     });
+
     return {
-      styles
+      styles,
+      classList
     };
   }
 });

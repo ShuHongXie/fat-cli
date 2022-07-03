@@ -1,20 +1,14 @@
-import { defineComponent, computed, resolveDirective, openBlock, createElementBlock, normalizeClass, normalizeStyle, withDirectives, createElementVNode } from 'vue';
+import { defineComponent, computed, resolveDirective, openBlock, createElementBlock, normalizeClass, normalizeStyle, withModifiers, withDirectives, createElementVNode } from 'vue';
 import useGlobal from '@/hooks/useGlobal';
-
-var _export_sfc = (sfc, props) => {
-  const target = sfc.__vccOpts || sfc;
-  for (const [key, val] of props) {
-    target[key] = val;
-  }
-  return target;
-};
+import { _ as _export_sfc } from './plugin-vue_export-helper-4e43bc16.js';
 
 const _sfc_main = defineComponent({
   name: "wb-image",
   props: {
     src: {
       type: String,
-      default: ""
+      default: "",
+      required: true
     },
     type: {
       type: String,
@@ -65,13 +59,22 @@ const _sfc_main = defineComponent({
       type: String,
       default: ""
     },
-    imgCover: {
-      type: Boolean,
-      default: false
-    },
     watermark: {
       type: String,
       default: ""
+    },
+    style: {
+      type: Object,
+      default() {
+        return {};
+      }
+    },
+    objectFit: {
+      type: String,
+      default: "initial",
+      validator: (value) => {
+        return ["initial", "fill", "contain", "cover", "none", "scale-down"].indexOf(value) !== -1;
+      }
     }
   },
   setup(props) {
@@ -94,14 +97,22 @@ const _sfc_main = defineComponent({
     const setParameter = computed(() => props.parameter ? "/resize," + props.parameter : "");
     const setImgStyle = computed(() => {
       const { width, height, radius } = props;
-      return {
-        width: width || "100%",
-        height: height || "100%",
+      console.log({
+        width: `${width}px` || "100%",
+        height: `${height}px` || "100%",
         "border-radius": radius || "none",
-        overflow: radius ? "hidden" : ""
+        overflow: radius ? "hidden" : "",
+        ...props.style
+      });
+      return {
+        width: `${width}px` || "100%",
+        height: `${height}px` || "100%",
+        "border-radius": radius || "none",
+        overflow: radius ? "hidden" : "",
+        ...props.style
       };
     });
-    const setImgClass = computed(() => ["image__shape--" + props.shape]);
+    const setImgClass = computed(() => ["wb-image__shape--" + props.shape]);
     const url = computed(() => {
       const { type, quality, src, watermark } = props;
       const imgType = type === "jpg" ? "/format,jpg" : "";
@@ -123,20 +134,20 @@ const _hoisted_1 = ["src"];
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _directive_lazy = resolveDirective("lazy");
   return openBlock(), createElementBlock("div", {
-    class: normalizeClass([_ctx.setImgClass, "image"]),
+    class: normalizeClass([_ctx.setImgClass, "wb-image"]),
     style: normalizeStyle(_ctx.setImgStyle),
-    onClick: _cache[1] || (_cache[1] = ($event) => _ctx.$emit("click"))
+    onClick: _cache[1] || (_cache[1] = withModifiers(($event) => _ctx.$emit("click"), ["stop"]))
   }, [
     withDirectives(createElementVNode("img", {
       src: _ctx.url,
-      class: normalizeClass(_ctx.imgCover ? "img" : ""),
+      style: normalizeStyle({ objectFit: _ctx.objectFit }),
       onLoad: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("show", $event))
-    }, null, 42, _hoisted_1), [
+    }, null, 44, _hoisted_1), [
       [_directive_lazy, _ctx.lazyLoad]
     ])
   ], 6);
 }
-var WbImage = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/xiexiaoxie/test/wb-cli/packages/@wanbiao/ui/src/components/image/index.vue"]]);
+var WbImage = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "D:\\workspace\\wb-cli\\packages\\@wanbiao\\ui\\src\\components\\image\\index.vue"]]);
 
 WbImage.install = (app) => {
     app.component(WbImage.name, WbImage);

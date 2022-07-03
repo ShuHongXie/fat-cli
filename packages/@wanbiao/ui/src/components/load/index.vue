@@ -1,8 +1,7 @@
 <template>
   <div class="wb-load">
     <div class="wb-load__loading" v-if="!loaded">
-      <span>{{ loadingText }}</span>
-      <!-- <DotLoading color="currentColor" /> -->
+      <wb-loading>{{ loadingText }}</wb-loading>
     </div>
     <span v-else class="wb-load__loaded">{{ loadedText }}</span>
   </div>
@@ -11,12 +10,16 @@
 <script lang="ts">
 import './index.scss';
 import { defineComponent } from 'vue';
+import WbLoading from '../loading/index.ts';
 export default defineComponent({
   name: 'wb-load',
+  components: {
+    WbLoading
+  },
   props: {
     loadingText: {
       type: String,
-      default: '加载中'
+      default: '加载中...'
     },
     loaded: {
       type: Boolean,

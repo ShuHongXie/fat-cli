@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import './index.scss';
-import WbImage from '../image';
+import WbImage from '../image/index.ts';
 import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'wb-empty',
