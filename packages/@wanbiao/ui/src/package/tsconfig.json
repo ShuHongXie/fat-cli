@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "declaration": true,
+    "declaration": false,
     "strict": true,
     "jsx": "preserve",
     "moduleResolution": "node",
@@ -14,13 +14,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": ["webpack-env", "jest"],
-    "paths": {
-      "@/*": ["src/*"],
-      "@wb-ui/*": ["src/*"],
-      "~/*": ["./*"]
-    },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["build/*.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": ["./**/*.ts"],
   "exclude": ["node_modules", "**/*.stories.ts"]
 }

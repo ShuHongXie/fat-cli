@@ -30,7 +30,7 @@ const config: RollupOptions = {
   external: ['vue']
 };
 ['image'].forEach((name) => {
-  (config.input as Input)[name] = resolve(`src/components/${name}/index.ts`).toString();
+  (config.input as Input)[name] = resolve(`src/package/${name}/index.ts`).toString();
   (config.output as OutputOptions[]).push({
     dir: resolve(`packages/${name}`),
     name: `index.js`

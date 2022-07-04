@@ -15,9 +15,9 @@
 </template>
 
 <script lang="ts" setup>
-import WbTransitionBox from '@/components/transition-box/index.vue';
-import WbList from '@/components/list';
-import WbLoading from '@/components/loading';
+import WbTransitionBox from 'package/transition-box/index.vue';
+import WbList from '@/package/list';
+import WbLoading from '@/package/loading';
 const data = [1, 2, 3, 4];
 </script>
 

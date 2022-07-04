@@ -13,11 +13,18 @@ const resolve = (filePath) => {
 
 const config = {
   input: {},
-  output: [],
+  output: {
+    dir: resolve(`package`),
+    entryFileNames: `[name]/index.js`
+  },
   plugins: [
-    // terser(),
+    terser(),
+    // dts(),
     vue(),
-    typescript(),
+    typescript({
+      tsconfig: resolve('./src/package/tsconfig.json'),
+      include: ['src/package/**/*.ts']
+    }),
     postcss({
       extensions: ['css', 'scss'],
       extract: true,
@@ -29,14 +36,15 @@ const config = {
     })
   ],
   external: ['vue']
+  // makeAbsoluteExternalsRelative: false
 };
 ['image', 'button', 'empty', 'icon', 'list', 'load', 'loading', 'transition-box'].forEach(
   (name) => {
-    config.input[name] = resolve(`src/components/${name}/index.ts`);
-    config.output.push({
-      dir: resolve(`packages/${name}`),
-      name: `index.js`
-    });
+    config.input[name] = resolve(`src/package/${name}/index.ts`);
+    // config.output.push({
+    //   dir: resolve(`packages/${name}`),
+    //   name: `index.js`
+    // });
   }
 );
 

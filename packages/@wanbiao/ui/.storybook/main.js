@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  stories: ['../src/components/**/*.(js|jsx|ts|tsx)'],
+  stories: ['../src/package/**/*.(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -13,6 +13,7 @@ module.exports = {
     // config.plugins[1].userOptions.meta['referrer'] = 'no-referrer';
     // meta['referrer'] = 'no-referrer'
     config.resolve.alias['@'] = path.resolve(__dirname, '../src');
+    config.resolve.alias['@wb-ui'] = path.resolve(__dirname, '../src');
     return config;
   },
   framework: '@storybook/vue3',
