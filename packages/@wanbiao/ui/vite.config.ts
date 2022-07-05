@@ -33,7 +33,7 @@ export default defineConfig({
       '@wb-ui': resolve('src')
     }
   },
-  plugins: [vue(), dts()],
+  plugins: [vue()],
   build: {
     lib: {
       entry: resolve('/src/package/index.ts'),
@@ -41,7 +41,15 @@ export default defineConfig({
       // fileName: 'wb-ui',
       // formats: ['es']
     },
-    minify: false
+    minify: false,
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue'
+        }
+      }
+    }
     // rollupOptions: {
     //   // 请确保外部化那些你的库中不需要的依赖
     //   external: ['vue'],

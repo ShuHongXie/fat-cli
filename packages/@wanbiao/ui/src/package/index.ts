@@ -15,7 +15,7 @@ const components = [button, empty, icon, image, list, load, loading, transitionB
 const install = (app: App): void => {
   for (const key in components) {
     const item = components[key] as Component;
-    app.use((item as any).install);
+    app.use(item as any);
   }
 };
 

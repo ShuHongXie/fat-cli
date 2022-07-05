@@ -8,9 +8,9 @@
       </template>
     </wb-transition-box> -->
     <wb-loading color="#eee">12</wb-loading>
-    <!-- <wb-list :status="'LOAD'" :total="100" enable-flex>
+    <wb-list :status="'LOAD'" :total="100" enable-flex>
       <div class="box" v-for="item in data" :key="item">213</div>
-    </wb-list> -->
+    </wb-list>
   </div>
 </template>
 
