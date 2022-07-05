@@ -17,10 +17,11 @@
     "paths": {
       "@/*": ["src/*"],
       "@wb-ui/*": ["src/*"],
+      "@wb/*": ["dist/package/*"],
       "~/*": ["./*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": ["build/*.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
-  "exclude": ["node_modules", "**/*.stories.ts"]
+  "exclude": ["node_modules", "**/*.stories.ts", "package"]
 }

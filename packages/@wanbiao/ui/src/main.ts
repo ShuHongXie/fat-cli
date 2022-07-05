@@ -5,7 +5,13 @@ import router from './router';
 import config from '@/config/index';
 import installLazy from '@/directives/lazy';
 
-const app = createApp(App).use(router);
+// @ts-ignore
+import WbUI from '../dist/ui.es';
+// import WbList from './package/list';
+import all from './package';
+console.log(all);
+
+const app = createApp(App).use(router).use(WbUI);
 
 app.config.globalProperties.OSS = config.OSS[process.env.NODE_ENV as 'development' | 'production'];
 app.config.globalProperties.OSS_STATIC = config.OSS.static as string;

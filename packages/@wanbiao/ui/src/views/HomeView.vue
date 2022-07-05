@@ -8,16 +8,16 @@
       </template>
     </wb-transition-box> -->
     <wb-loading color="#eee">12</wb-loading>
-    <wb-list :status="'LOAD'" :total="100" enable-flex>
+    <!-- <wb-list :status="'LOAD'" :total="100" enable-flex>
       <div class="box" v-for="item in data" :key="item">213</div>
-    </wb-list>
+    </wb-list> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import WbTransitionBox from 'package/transition-box/index.vue';
-import WbList from '@/package/list';
-import WbLoading from '@/package/loading';
+// import WbTransitionBox from '@wb/transition-box/index.vue';
+// import WbList from '@wb/list';
+// import WbLoading from '@wb/loading';
 const data = [1, 2, 3, 4];
 </script>
 
