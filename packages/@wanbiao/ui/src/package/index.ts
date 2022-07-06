@@ -8,14 +8,25 @@ import loading from './loading';
 import transitionBox from './transition-box';
 console.log(transitionBox);
 
-import type { App, Component, Plugin } from 'vue';
+import type { App, Plugin, DefineComponent } from 'vue';
 
-const components = [button, empty, icon, image, list, load, loading, transitionBox] as Plugin[];
+type SFCWithInstall<T> = T & Plugin;
+
+const components = [
+  button,
+  empty,
+  icon,
+  image,
+  list,
+  load,
+  loading,
+  transitionBox
+] as SFCWithInstall<DefineComponent>[];
 
 const install = (app: App): void => {
   for (const key in components) {
-    const item = components[key] as Component;
-    app.use(item as any);
+    const item = components[key];
+    app.use(item);
   }
 };
 
