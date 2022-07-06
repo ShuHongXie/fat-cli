@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build:package": "rollup -c ./build/index.js",
+    "build:package": "rollup -c ./build/rollup.config.js",
     "build:vite": "vite build"
   },
   "dependencies": {

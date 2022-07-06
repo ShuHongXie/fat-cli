@@ -10,7 +10,7 @@ console.log(transitionBox);
 
 import type { App, Component, Plugin } from 'vue';
 
-const components = [button, empty, icon, image, list, load, loading, transitionBox];
+const components = [button, empty, icon, image, list, load, loading, transitionBox] as Plugin[];
 
 const install = (app: App): void => {
   for (const key in components) {
@@ -19,4 +19,4 @@ const install = (app: App): void => {
   }
 };
 
-export default { install };
+export default { install, title: '总入口' };

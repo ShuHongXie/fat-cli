@@ -33,18 +33,23 @@ export default defineConfig({
       '@wb-ui': resolve('src')
     }
   },
-  plugins: [vue()],
+  plugins: [vue(), dts({ cleanVueFileName: true, staticImport: true })],
   build: {
     lib: {
       entry: resolve('/src/package/index.ts'),
-      name: 'wb-ui'
-      // fileName: 'wb-ui',
-      // formats: ['es']
+      name: 'wb-ui',
+      fileName: 'index',
+      formats: ['es']
     },
     minify: false,
     rollupOptions: {
       external: ['vue'],
+      input: {
+        index: './src/package/index.ts'
+      },
       output: {
+        dir: './dist',
+        entryFileNames: `index.js`,
         globals: {
           vue: 'Vue'
         }

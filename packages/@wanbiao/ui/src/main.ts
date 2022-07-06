@@ -5,11 +5,11 @@ import router from './router';
 import config from '@/config/index';
 import installLazy from '@/directives/lazy';
 
-// @ts-ignore
-import WbUI from '../dist/ui.es';
+import WbUI from '../dist';
+import '../dist/style.css';
 // import WbList from './package/list';
-import all from './package';
-console.log(all);
+// import all from './package';
+// console.log(all);
 
 const app = createApp(App).use(router).use(WbUI);
 

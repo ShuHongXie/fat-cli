@@ -23,5 +23,5 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": ["build/*.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
-  "exclude": ["node_modules", "**/*.stories.ts", "package"]
+  "exclude": ["node_modules", "**/*.stories.ts", "dist", "./src/package/shims-vue.d.ts"]
 }

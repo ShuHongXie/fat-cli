@@ -4,6 +4,8 @@ design
 *.log
 packages/test
 dist
+storybook-static
+package
 temp
 .vuerc
 .version
