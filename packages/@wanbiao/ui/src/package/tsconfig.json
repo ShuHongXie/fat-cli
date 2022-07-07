@@ -16,6 +16,6 @@
     "types": ["webpack-env", "jest"],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "../shims-vue.d.ts"],
   "exclude": ["node_modules", "**/*.stories.ts"]
 }

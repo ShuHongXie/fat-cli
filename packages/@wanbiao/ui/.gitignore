@@ -6,6 +6,7 @@ packages
 storybook-static
 /tests/e2e/videos/
 /tests/e2e/screenshots/
+/src/config
 
 
 # local env files

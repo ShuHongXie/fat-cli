@@ -3,13 +3,13 @@ import App from './App.vue';
 import router from './router';
 
 import config from '@/config/index';
-import installLazy from '@/directives/lazy';
+import installLazy from '@/package/directives/lazy';
 
-import WbUI from '../dist';
-import '../dist/style.css';
+import WbUI from '../package/index';
+import '../package/style.css';
 // import WbList from './package/list';
-// import all from './package';
-// console.log(all);
+import all from './package';
+console.log(WbUI);
 
 const app = createApp(App).use(router).use(WbUI);
 

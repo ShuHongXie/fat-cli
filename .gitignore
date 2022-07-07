@@ -3,6 +3,7 @@ node_modules
 design
 *.log
 packages/test
+packages/@wanbiao/ui/src/config
 dist
 storybook-static
 package

@@ -10,7 +10,7 @@ export const parameters = {
 
 import { app } from '@storybook/vue3';
 import config from '@/config/index';
-import installLazy from '@/directives/lazy';
+import installLazy from '@/package/directives/lazy';
 
 app.config.globalProperties.OSS = config.OSS['production'];
 app.config.globalProperties.OSS_STATIC = config.OSS.static;

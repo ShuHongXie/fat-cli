@@ -6,7 +6,7 @@ const cwd = process.cwd();
 
 const dev = {
   async buildVite() {
-    await exec('rm -rf dist/');
+    await exec('rm -rf package/');
     await exec('vite build');
   },
   async buildRollup() {
@@ -34,7 +34,7 @@ const dev = {
   async start() {
     await this.buildVite();
     await this.buildRollup();
-    await this.moveDts();
+    // await this.moveDts();
     // await this.deletePluginHelper();
   }
 };

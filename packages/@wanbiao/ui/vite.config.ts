@@ -8,22 +8,6 @@ const resolve = (filePath) => {
   return join(process.cwd(), filePath);
 };
 
-const formatFileName = (fileName: string) => {
-  let formatFile: string | string[] = fileName;
-  formatFile = formatFile.split(process.platform === 'darwin' ? '/' : '\\');
-  if (formatFile[formatFile.length - 2] === 'package') {
-    return 'index';
-  } else {
-    return formatFile[formatFile.length - 2];
-  }
-};
-
-const entries = glob.sync(`./src/package/*/index.ts`).map((fileName) => {
-  const formatFile = formatFileName(fileName);
-  return [formatFile, fileName];
-});
-console.log(resolve('/src/package/index.ts'));
-
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -33,7 +17,19 @@ export default defineConfig({
       '@wb-ui': resolve('src')
     }
   },
-  plugins: [vue(), dts({ cleanVueFileName: true, staticImport: true })],
+  plugins: [
+    vue(),
+    dts({
+      cleanVueFileName: true,
+      staticImport: true,
+      outputDir: './',
+      entryRoot: ''
+      // beforeWriteFile(filePath, content) {
+      //   filePath = filePath.replace(`dist${slash}package`, 'dist');
+      //   console.log(filePath);
+      // }
+    })
+  ],
   build: {
     lib: {
       entry: resolve('/src/package/index.ts'),
@@ -46,10 +42,18 @@ export default defineConfig({
       external: ['vue'],
       input: {
         index: './src/package/index.ts'
+        // ...Object.fromEntries(entries(`./src/package/directives/*.ts`)),
+        // ...Object.fromEntries(entries(`./src/package/utils/*.ts`))
       },
       output: {
-        dir: './dist',
-        entryFileNames: `index.js`,
+        dir: './package',
+        // entryFileNames: (chunkInfo) => {
+        //   const path = chunkInfo.facadeModuleId?.split(slash) as string[];
+        //   return path[path.length - 2] === 'package'
+        //     ? `${chunkInfo.name}.js`
+        //     : `${path[path.length - 2]}/${path[path.length - 1].replace(/\.ts/, '.js')}`;
+        // },
+        entryFileNames: '[name].js',
         globals: {
           vue: 'Vue'
         }
@@ -59,13 +63,13 @@ export default defineConfig({
     //   // 请确保外部化那些你的库中不需要的依赖
     //   external: ['vue'],
     //   input: {
-    //     index: './src/package/index.ts'
+    //     directives: './src/package/directives'
     //   },
     //   output: {
     //     dir: './dist',
     //     // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-    //     assetFileNames: '[name][extname]',
-    //     entryFileNames: `index.js`
+    //     assetFileNames: '[name][extname]'
+    //     // entryFileNames: `index.js`
     //     // chunkFileNames: `[name].js`
     //   }
     // }
