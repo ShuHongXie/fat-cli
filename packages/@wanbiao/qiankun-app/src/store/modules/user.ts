@@ -1,28 +1,32 @@
 // import { login, logout, getInfo } from '@/api/user';
-// import { getToken, setToken, removeToken } from '@/utils/auth';
+import { getToken, setToken, removeToken } from '@/utils/auth';
 // import { resetRouter } from '@/router';
 
-const getDefaultState = () => {
-  return {
-    token: getToken(),
-    name: '',
-    avatar: ''
-  };
+export type UserState = {
+  token?: string;
+  name?: string;
+  avatar?: string;
 };
 
-const state = getDefaultState();
+const getDefaultState = () => ({
+  token: getToken(),
+  name: '',
+  avatar: ''
+});
+
+const state: UserState = getDefaultState();
 
 const mutations = {
-  RESET_STATE: (state) => {
+  RESET_STATE: (state: UserState) => {
     Object.assign(state, getDefaultState());
   },
-  SET_TOKEN: (state, token) => {
+  SET_TOKEN: (state: UserState, token: string) => {
     state.token = token;
   },
-  SET_NAME: (state, name) => {
+  SET_NAME: (state: UserState, name: string) => {
     state.name = name;
   },
-  SET_AVATAR: (state, avatar) => {
+  SET_AVATAR: (state: UserState, avatar: string) => {
     state.avatar = avatar;
   }
 };
