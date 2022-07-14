@@ -8,17 +8,12 @@ import 'element-plus/dist/index.css';
 
 import '@/styles/index.scss';
 
+import '@/assets/icons';
+
 const { mockXHR } = require('../mock');
 mockXHR();
 
 import SvgIcon from './components/SvgIcon/index.vue';
-
-const req = require.context('./icons/svg', false, /\.svg$/);
-console.log(req);
-
-const requireAll = (requireContext: any) => requireContext.keys().map(requireContext);
-requireAll(req);
-
 const app = createApp(App);
 app.component('svg-icon', SvgIcon);
 app.use(ElementPlus).use(store).use(router).mount('#app');

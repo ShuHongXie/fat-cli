@@ -1,6 +1,6 @@
 <template>
   <div v-if="isExternalFlag" :style="styleExternalIcon" class="svg-external-icon svg-icon"></div>
-  <svg :class="svgClass" aria-hidden="true">
+  <svg v-else :class="svgClass" aria-hidden="true">
     <use :xlink:href="iconName" />
   </svg>
 </template>

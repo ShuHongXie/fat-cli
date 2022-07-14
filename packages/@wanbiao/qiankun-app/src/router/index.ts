@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import Layout from '@/layout/index.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -15,18 +16,19 @@ const routes: Array<RouteRecordRaw> = [
       hidden: true
     }
   },
-
-  // {
-  //   path: '/',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   children: [{
-  //     path: 'dashboard',
-  //     name: 'Dashboard',
-  //     component: () => import('@/views/dashboard/index'),
-  //     meta: { title: 'Dashboard', icon: 'dashboard' }
-  //   }]
-  // },
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
+      }
+    ]
+  },
 
   // {
   //   path: '/example',
@@ -139,5 +141,10 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
+
+// export function resetRouter() {
+//   const newRouter = createRouter()
+//   router.matcher = newRouter.matcher // reset router
+// }
 
 export default router;

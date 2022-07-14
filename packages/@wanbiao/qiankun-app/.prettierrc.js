@@ -4,15 +4,16 @@ module.exports = {
   jsxBracketSameLine: true,
   printWidth: 100,
   singleQuote: true,
-  trailingComma: "none",
+  trailingComma: 'none',
   semi: true,
+  vueIndentScriptAndStyle: true,
   overrides: [
     {
-      files: "*.json",
+      files: '*.json',
       options: {
-        printWidth: 200,
-      },
-    },
+        printWidth: 200
+      }
+    }
   ],
-  arrowParens: "always",
+  arrowParens: 'always'
 };
