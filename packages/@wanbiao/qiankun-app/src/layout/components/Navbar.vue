@@ -12,7 +12,8 @@
           <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <i class="el-icon-caret-bottom"></i>
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <!-- <el-dropdown-menu slot="dropdown" class="user-dropdown">-->
+        <el-dropdown-menu class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item> Home </el-dropdown-item>
           </router-link>
@@ -22,7 +23,7 @@
           <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
-          <el-dropdown-item divided @click.native="logout">
+          <el-dropdown-item divided @click="logout">
             <span style="display: block">Log Out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -43,7 +44,7 @@
   console.log(store);
 
   const sidebar = computed(() => store.state.app.sidebar);
-  console.log(sidebar);
+  console.log('SIDEBAR', sidebar);
 
   const avatar = computed(() => store.state.user.avatar);
   const toggleSideBar = () => {

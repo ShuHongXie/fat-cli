@@ -1,7 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper">
     <div
-      v-if="device === 'mobile' && sidebar.opened"
+      v-if="device === 'mobile' && sidebarStatus.opened"
       class="drawer-bg"
       @click="handleClickOutside"
     ></div>
@@ -22,21 +22,21 @@
   import { useRoute } from 'vue-router';
   const route = useRoute();
   const store = useStore();
-  const sidebar = computed(() => store.state.app.sidebar);
+  const sidebarStatus = computed(() => store.state.app.sidebar);
   const device = computed(() => store.state.app.device);
   const fixedHeader = computed(() => store.state.settings.fixedHeader);
   const { body } = document;
   const WIDTH = 992; // refer to Bootstrap's responsive design
   const classObj = computed(() => ({
-    hideSidebar: !sidebar.value.opened,
-    openSidebar: sidebar.value.opened,
-    withoutAnimation: sidebar.value.withoutAnimation,
+    hideSidebar: !sidebarStatus.value.opened,
+    openSidebar: sidebarStatus.value.opened,
+    withoutAnimation: sidebarStatus.value.withoutAnimation,
     mobile: device.value === 'mobile'
   }));
   watch(
     () => route,
     (route) => {
-      if (device.value === 'mobile' && sidebar.value.opened) {
+      if (device.value === 'mobile' && sidebarStatus.value.opened) {
         store.dispatch('app/closeSideBar', { withoutAnimation: false });
       }
     },

@@ -20,7 +20,7 @@ const mutations = {
     state: SettingsState,
     { key, value }: { key: keyof SettingsState; value: boolean }
   ) => {
-    if (state.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(state, key)) {
       state[key] = value;
     }
   }

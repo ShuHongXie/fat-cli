@@ -11,7 +11,11 @@ export type AppState = {
 
 const state: AppState = {
   sidebar: {
-    opened: Cookies.get('sidebarStatus') ? Cookies.get('sidebarStatus') : true,
+    opened: Cookies.get('sidebarStatus')
+      ? Cookies.get('sidebarStatus') === '0'
+        ? false
+        : true
+      : true,
     withoutAnimation: false
   },
   device: 'desktop'
