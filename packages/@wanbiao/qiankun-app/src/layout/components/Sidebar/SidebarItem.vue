@@ -1,42 +1,36 @@
 <template>
-  <div class="sidesdf test" v-if="!item?.meta?.hidden">
-    {{
+  <template
+    v-if="
       hasOneShowingChild(item.children, item) &&
       (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
       !item.meta?.alwaysShow
-    }}
-    {{ onlyOneChild }}
-    <template
-      v-if="
-        hasOneShowingChild(item.children, item) &&
-        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-        !item.meta?.alwaysShow
-      "
+    "
+  >
+    <!-- <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)"> -->
+    <el-menu-item
+      :index="resolvePath(onlyOneChild.path)"
+      v-if="onlyOneChild.meta"
+      :class="{ 'submenu-title-noDropdown': !isNest }"
     >
-      {{ onlyOneChild.meta }}
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
-          :class="{ 'submenu-title-noDropdown': !isNest }"
-        >
-          <item
-            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            :title="onlyOneChild.meta.title"
-          />
-        </el-menu-item>
-      </app-link>
-    </template>
+      <item
+        :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
+        :title="onlyOneChild.meta.title"
+      />
+    </el-menu-item>
+    <!-- </app-link> -->
+  </template>
 
-    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)">
-      <template #title>
-        <item
-          v-if="item.meta"
-          :icon="(item.meta.icon as string)"
-          :title="(item.meta.title as string)"
-        />
-      </template>
-      1231
-      <!-- <sidebar-item
+  <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)">
+    <template #title>
+      {{ 12321 }}
+      <item
+        v-if="item.meta"
+        :icon="(item.meta.icon as string)"
+        :title="(item.meta.title as string)"
+      />
+      456
+    </template>
+    <!-- <sidebar-item
         v-for="child in item.children"
         :key="child.path"
         :is-nest="true"
@@ -44,8 +38,7 @@
         :base-path="resolvePath(child.path)"
         class="nest-menu"
       /> -->
-    </el-sub-menu>
-  </div>
+  </el-sub-menu>
 </template>
 
 <script setup lang="ts">
@@ -56,7 +49,6 @@
   import Item from './Item.vue';
   import AppLink from './Link.vue';
   import { RouteRecordRaw } from 'vue-router';
-  import { log } from 'console';
   // type RouteRecord = RouteRecordRaw & {
   //   meta: {};
   // };
@@ -79,22 +71,20 @@
     }
   });
   const hasOneShowingChild = (children = [] as RouteRecordRaw[], parent: RouteRecordRaw) => {
-    console.log(children);
-    const showingChildren =
-      children.length &&
-      children.filter((item: RouteRecordRaw) => {
-        if (item.meta?.hidden) {
-          return false;
-        } else {
-          onlyOneChild.value = item;
-          console.log('1', onlyOneChild.value);
-          return true;
-        }
-      });
-    if (showingChildren) {
+    const showingChildren = children.filter((item: RouteRecordRaw) => {
+      if (item.meta?.hidden) {
+        return false;
+      } else {
+        onlyOneChild.value = item;
+        console.log('1', onlyOneChild.value);
+        return true;
+      }
+    });
+
+    if (showingChildren.length === 1) {
       return true;
     }
-    if (!showingChildren) {
+    if (showingChildren.length === 0) {
       onlyOneChild.value = { ...parent, path: '', noShowingChildren: true };
       console.log('2', onlyOneChild.value);
       return true;

@@ -1,16 +1,15 @@
 <template>
   <div :class="{ 'has-logo': showLogo }">
     <logo v-if="showLogo" :collapse="isCollapse" />
+    {{ isCollapse }}
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
         :default-active="activeMenu"
         :collapse="isCollapse"
         :background-color="scssVariables.menuBg"
         :text-color="scssVariables.menuText"
-        :unique-opened="false"
         :active-text-color="scssVariables.menuActiveText"
-        :collapse-transition="false"
-        mode="vertical"
+        :collapse-transition="true"
       >
         <sidebar-item
           v-for="route in routes"
@@ -35,7 +34,9 @@
   const route = useRoute();
   const store = useStore();
   const sidebar = computed(() => store.state.app.sidebar);
-  const routes = computed(() => router.options.routes);
+  const routes = computed(() => {
+    return router.options.routes.filter((route) => !route.meta?.hidden);
+  });
   console.log('---');
   console.log(routes.value);
   const activeMenu = computed(() => {
