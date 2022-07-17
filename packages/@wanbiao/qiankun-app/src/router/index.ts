@@ -25,11 +25,32 @@ const routes: Array<RouteRecordRaw> = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index.vue'),
-        meta: { title: 'Dashboard', icon: 'dashboard' }
+        meta: { title: 'Dashboard', icon: 'eye' },
+        children: [
+          {
+            path: 'test',
+            name: '测试',
+            component: () => import('@/views/dashboard/index.vue'),
+            meta: { title: 'test', icon: 'dashboard' }
+          }
+        ]
       }
     ]
   },
-
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/test/index.vue'),
+        meta: { title: 'Table', icon: 'table' }
+      }
+    ]
+  },
   // {
   //   path: '/example',
   //   component: Layout,

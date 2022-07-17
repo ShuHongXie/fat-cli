@@ -59,6 +59,9 @@
       }
     }
   };
+  const toggleSideBar = () => {
+    store.dispatch('app/toggleSideBar');
+  };
   onBeforeMount(() => {
     window.addEventListener('resize', resizeHandler);
   });
@@ -79,13 +82,36 @@
   @import '~@/styles/variables.scss';
 
   .app-wrapper {
-    @include clearfix;
     position: relative;
     height: 100%;
-    width: 100%;
+    width: 100vw;
+    display: flex;
+    .main-container {
+      min-height: 100%;
+      position: relative;
+      transition: width 0.28s;
+      flex: 1;
+    }
+
+    .sidebar-container {
+      max-width: 210px;
+      height: 100%;
+      z-index: 1001;
+      overflow: hidden;
+    }
+
+    ::v-deep .el-menu {
+      border: none;
+      // background-color: #304156;
+    }
     &.mobile.openSidebar {
       position: fixed;
       top: 0;
+    }
+    &.hideSidebar {
+      .main-container {
+        width: calc(100vw - 64px);
+      }
     }
   }
   .drawer-bg {
@@ -98,20 +124,7 @@
     z-index: 999;
   }
 
-  .fixed-header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 9;
-    width: calc(100% - #{$sideBarWidth});
-    transition: width 0.28s;
-  }
-
-  .hideSidebar .fixed-header {
-    width: calc(100% - 54px);
-  }
-
-  .mobile .fixed-header {
-    width: 100%;
-  }
+  // .mobile .fixed-header {
+  //   width: 100%;
+  // }
 </style>

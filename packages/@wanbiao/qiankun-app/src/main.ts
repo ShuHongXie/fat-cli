@@ -9,6 +9,7 @@ import 'element-plus/dist/index.css';
 import '@/styles/index.scss';
 
 import '@/assets/icons';
+import '@/permission';
 
 const { mockXHR } = require('../mock');
 mockXHR();
