@@ -25,15 +25,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'dashboard',
         name: 'Dashboard',
         component: () => import('@/views/dashboard/index.vue'),
-        meta: { title: 'Dashboard', icon: 'eye' },
-        children: [
-          {
-            path: 'test',
-            name: '测试',
-            component: () => import('@/views/dashboard/index.vue'),
-            meta: { title: 'test', icon: 'dashboard' }
-          }
-        ]
+        meta: { title: 'Dashboard', icon: 'dashboard' }
       }
     ]
   },
@@ -48,6 +40,19 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Table',
         component: () => import('@/views/test/index.vue'),
         meta: { title: 'Table', icon: 'table' }
+      }
+    ]
+  },
+  {
+    path: '/micro',
+    component: Layout,
+    redirect: () => ({ path: '/micro/inner' }),
+    children: [
+      {
+        path: 'inner',
+        name: 'inner',
+        component: () => import('@/views/empty/index.vue'),
+        meta: { title: 'inner', icon: 'example' }
       }
     ]
   },
@@ -155,11 +160,17 @@ const routes: Array<RouteRecordRaw> = [
   //     }
   //   ]
   // },
-  { path: '/(.*)', redirect: '/404', meta: { hidden: true } }
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: (to) => {
+      return { path: '/404' };
+    },
+    meta: { hidden: true }
+  }
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+export default createRouter({
+  history: createWebHistory('/'),
   routes
 });
 
@@ -167,5 +178,3 @@ const router = createRouter({
 //   const newRouter = createRouter()
 //   router.matcher = newRouter.matcher // reset router
 // }
-
-export default router;

@@ -1,11 +1,4 @@
 <template>
-  {{ item }} ------ {{ onlyOneChild }} 判断{{
-    !!(
-      hasOneShowingChild(item.children, item) &&
-      (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-      !item.meta?.alwaysShow
-    )
-  }}
   <template
     v-if="
       hasOneShowingChild(item.children, item) &&
@@ -31,12 +24,11 @@
         ><el-icon><location /></el-icon><span>item four</span></template
       >
       <el-menu-item index="1-4-1">item one</el-menu-item> -->
-      {{ item }}
       <template #title>
         <el-icon>
           <svg-icon :icon-class="item?.meta?.icon" />
         </el-icon>
-        <span>{{ item?.meta?.title }}12312 {{ item.path }}</span>
+        <span>{{ item?.meta?.title }}</span>
       </template>
       <sidebar-item
         v-for="child in item.children"
@@ -75,7 +67,6 @@
       default: ''
     }
   });
-  console.log(props.item);
 
   const hasOneShowingChild = (children = [] as RouteRecordRaw[], parent: RouteRecordRaw) => {
     const showingChildren = children.filter((item: RouteRecordRaw) => {
@@ -83,18 +74,15 @@
         return false;
       } else {
         onlyOneChild.value = item;
-        console.log('1', onlyOneChild.value);
         return true;
       }
     });
-    console.log(showingChildren, children[0].path);
 
     if (showingChildren.length === 1) {
       return true;
     }
     if (showingChildren.length === 0) {
       onlyOneChild.value = { ...parent, path: '', noShowingChildren: true };
-      console.log('2', onlyOneChild.value);
       return true;
     }
     return false;
@@ -123,8 +111,6 @@
   };
 
   onMounted(() => {
-    console.log(props.item);
-
     fixBugIniOS();
   });
 </script>

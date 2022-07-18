@@ -11,14 +11,17 @@ NProgress.configure({ showSpinner: false }); // NProgress Configuration
 const whiteList = ['/login']; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
-  // start progress bar
-  NProgress.start();
+  console.log('beforeEach Execute');
 
-  // set page title
+  if (!history.state.current) {
+    Object.assign(history.state, { current: from.fullPath });
+  }
+  NProgress.start();
   document.title = getPageTitle(to.meta.title);
 
   // determine whether the user has logged in
   const hasToken = getToken();
+  console.log(hasToken, to);
 
   if (hasToken) {
     if (to.path === '/login') {
@@ -28,12 +31,13 @@ router.beforeEach(async (to, from, next) => {
     } else {
       const hasGetUserInfo = store.getters.name;
       if (hasGetUserInfo) {
+        console.log('111');
         next();
       } else {
         try {
           // get user info
           await store.dispatch('user/getInfo');
-
+          console.log('222');
           next();
         } catch (error) {
           // remove token and go to login page to re-login
