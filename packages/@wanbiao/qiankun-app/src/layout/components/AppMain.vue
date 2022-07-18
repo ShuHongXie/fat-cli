@@ -1,28 +1,38 @@
 <template>
-  <section id="container">
+  <section class="app-main">
     <router-view :key="key" v-slot="{ Component }">
       <transition name="fade-transform" mode="out-in">
         <component :is="Component" />
       </transition>
     </router-view>
+    <transition name="fade-transform" mode="out-in">
+      <div id="container"></div>
+    </transition>
   </section>
 </template>
 
 <script setup lang="ts">
-  import { computed } from 'vue';
+  import { computed, onMounted } from 'vue';
   import { useRoute } from 'vue-router';
+  import { start } from 'qiankun';
   const route = useRoute();
   const key = computed(() => route.path);
+  onMounted(() => {
+    if (!window.isQiankunStart) {
+      window.isQiankunStart = true;
+      start();
+    }
+  });
 </script>
 
 <style scoped>
-  #container {
+  .app-main {
     /*50 = navbar  */
     min-height: calc(100vh - 50px);
     position: relative;
     overflow: hidden;
   }
-  .fixed-header + #container {
+  .fixed-header + .app-main {
     padding-top: 50px;
   }
 </style>

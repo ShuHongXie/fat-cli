@@ -5,13 +5,23 @@ import NProgress from 'nprogress'; // progress bar
 import 'nprogress/nprogress.css'; // progress bar style
 import { getToken } from '@/utils/auth'; // get token from cookie
 import getPageTitle from '@/utils/get-page-title';
+import isEqual from 'lodash.isequal';
 
 NProgress.configure({ showSpinner: false }); // NProgress Configuration
 
 const whiteList = ['/login']; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
-  console.log('beforeEach Execute');
+  console.log(
+    'beforeEach Execute',
+    to.path,
+    from.path,
+    isEqual(to.params, from.params),
+    isEqual(to.query, from.query)
+  );
+  if (to.path === from.path && isEqual(to.params, from.params) && isEqual(to.query, from.query)) {
+    next();
+  }
 
   if (!history.state.current) {
     Object.assign(history.state, { current: from.fullPath });

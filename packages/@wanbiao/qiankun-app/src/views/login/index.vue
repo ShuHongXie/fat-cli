@@ -64,7 +64,6 @@
   import { validUsername } from '@/utils/validate';
   import { useRoute, useRouter } from 'vue-router';
   import { useStore } from 'vuex';
-  import { registerMicroApps, start } from 'qiankun';
   import type { FormInstance } from 'element-plus';
   import type { LoginParams } from '@/entity/user.d';
   const route = useRoute();
@@ -125,26 +124,6 @@
         store
           .dispatch('user/login', loginForm)
           .then(() => {
-            // 启动qiankun ===========
-            console.log('微应用注册');
-            registerMicroApps(
-              [
-                {
-                  name: 'micro-qiankun-app',
-                  entry: '//localhost:9001',
-                  container: '#container',
-                  activeRule: '/micro'
-                }
-              ],
-              {
-                // @ts-ignore
-                beforeLoad: (app) => console.log('before load', app.name),
-                // @ts-ignore
-                beforeMount: [(app) => console.log('before mount', app.name)]
-              }
-            );
-            start();
-            // 启动qiankun ===========
             router.push({ path: redirect.value || '/' });
             loading.value = false;
           })
