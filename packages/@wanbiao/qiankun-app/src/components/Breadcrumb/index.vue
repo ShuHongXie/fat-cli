@@ -23,9 +23,10 @@
     _RouteRecordBase,
     RouteRecordRaw
   } from 'vue-router';
+  import { log } from 'console';
   const route = useRoute();
   const router = useRouter();
-  let levelList = reactive<_RouteRecordBase[]>([]);
+  let levelList = ref<_RouteRecordBase[]>([]);
   const isDashboard = (route) => {
     const name = route && route.name;
     if (!name) {
@@ -60,8 +61,7 @@
       ] as _RouteRecordBase[];
       matched = defaultEntry.concat(matched);
     }
-
-    levelList = matched.filter(
+    levelList.value = matched.filter(
       (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
     );
   };
@@ -82,7 +82,6 @@
     font-size: 14px;
     line-height: 50px;
     margin-left: 8px;
-
     .no-redirect {
       color: #97a8be;
       cursor: text;

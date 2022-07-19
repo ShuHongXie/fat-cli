@@ -47,12 +47,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/micro',
     component: Layout,
     redirect: () => ({ path: '/micro/inner' }),
+    name: 'micro',
     children: [
       {
         path: 'inner',
         name: 'inner',
         component: () => import('@/views/empty/index.vue'),
-        meta: { title: 'inner', icon: 'example' }
+        meta: { title: 'Inner', icon: 'example' }
       }
     ]
   },
