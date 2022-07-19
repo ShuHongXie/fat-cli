@@ -14,13 +14,18 @@ const whiteList = ['/login']; // no redirect whitelist
 router.beforeEach(async (to, from, next) => {
   console.log(
     'beforeEach Execute',
-    to.path,
-    from.path,
+    to.fullPath,
+    from.fullPath,
     isEqual(to.params, from.params),
     isEqual(to.query, from.query)
   );
-  if (to.path === from.path && isEqual(to.params, from.params) && isEqual(to.query, from.query)) {
-    next();
+  if (
+    to.fullPath === from.fullPath &&
+    isEqual(to.params, from.params) &&
+    isEqual(to.query, from.query)
+  ) {
+    // next(false);
+    // return false;
   }
 
   if (!history.state.current) {
