@@ -20,7 +20,7 @@
   onMounted(() => {
     if (!window.isQiankunStart) {
       window.isQiankunStart = true;
-      start({ strictStyleIsolation: true, experimentalStyleIsolation: true });
+      start();
     }
   });
 </script>

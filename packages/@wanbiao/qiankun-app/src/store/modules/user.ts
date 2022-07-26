@@ -43,6 +43,7 @@ const actions = {
           const { data } = response;
           commit('SET_TOKEN', data.token);
           setToken(data.token);
+          sessionStorage.setItem('token', data.token);
           resolve();
         })
         .catch((error) => {
